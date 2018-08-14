@@ -1,13 +1,14 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClubTreasurer.Models
 {
-    public class PlayerPosition
+    public class PlayerPosition : BaseModel
     {
-        public int ID { get; set; }
+        [Required]
         public string Name { get; set; }
+
+        public ICollection<Player> Players { get; set; }
     }
 }

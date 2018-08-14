@@ -6,10 +6,8 @@ using System.Threading.Tasks;
 
 namespace ClubTreasurer.Models
 {
-    public class Person
-    {
-        public int ID { get; set; }
-        
+    public class Person : BaseModel
+    {        
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
@@ -23,7 +21,8 @@ namespace ClubTreasurer.Models
         [DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
         public DateTime DOB { get; set; }
 
-        [DataType(DataType.Custom)]
+        public int BankAccountId { get; set; }
+
         public BankAccount BankAccount { get; set; }
     }
 }
