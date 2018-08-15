@@ -1,0 +1,31 @@
+﻿@page
+@model ClubTreasurer.Pages.PlayerPositions.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>PlayerPosition</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerPosition.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlayerPosition.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PlayerPosition.LastModified)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PlayerPosition.LastModified)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.PlayerPosition.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>

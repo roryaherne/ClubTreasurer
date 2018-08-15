@@ -1,0 +1,70 @@
+﻿@page
+@model ClubTreasurer.Pages.Players.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Player</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.Image)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.Image)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.Position)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.Position.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.FirstName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.FirstName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.LastName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.LastName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.Email)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.Email)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.DOB)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.DOB)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.BankAccounts)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.BankAccounts)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Player.LastModified)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Player.LastModified)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Player.ID" />
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        <a asp-page="./Index">Back to List</a>
+    </form>
+</div>

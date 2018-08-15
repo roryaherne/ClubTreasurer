@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ClubTreasurer.Interfaces;
 
 namespace ClubTreasurer.Models
 {
@@ -12,5 +9,6 @@ namespace ClubTreasurer.Models
         public int PositionId { get; set; }
 
         public PlayerPosition Position { get; set; }
+
     }
 }

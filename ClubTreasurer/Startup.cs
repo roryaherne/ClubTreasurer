@@ -12,6 +12,7 @@ using Microsoft.EntityFrameworkCore;
 using ClubTreasurer.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using ClubTreasurer.Models;
 
 namespace ClubTreasurer
 {
@@ -34,18 +35,25 @@ namespace ClubTreasurer
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
-
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        }
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+
+            services.AddDbContext<ClubTreasurerContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ClubTreasurerContext")));
+            //services.AddDefaultIdentity<IdentityUser>()
+            //    .AddEntityFrameworkStores<ClubTreasurerContext>();
+
+            services.AddIdentity<AppUser, AppRole>(
+                    options => options.Stores.MaxLengthForKeys = 128)
+                    .AddEntityFrameworkStores<ClubTreasurerContext>()
+                    .AddDefaultUI()
+                    .AddDefaultTokenProviders();
+            }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ClubTreasurerContext context, 
+            RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -65,6 +73,9 @@ namespace ClubTreasurer
             app.UseAuthentication();
 
             app.UseMvc();
+
+            IdentitySeed.Initialize(context, userManager, roleManager).Wait();
+            
         }
     }
 }
