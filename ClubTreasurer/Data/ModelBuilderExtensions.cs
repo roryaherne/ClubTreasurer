@@ -35,9 +35,20 @@ namespace ClubTreasurer.Models
                 .IsUnique();
         }
 
-        public static void Seed(this ModelBuilder modelBuilder, string userId)
+        public static void Seed(this ModelBuilder modelBuilder)
         {
             var now = DateTime.Now;
+            var userId = Guid.NewGuid().ToString();
+
+            modelBuilder.Entity<AppRole>().HasData(
+                new AppRole { Name="Administrator", Description= "Administrator" },
+                new AppRole { Name = "FinaceEditor", Description = "CRUD operations on finances" },
+                new AppRole { Name = "FinanceReader", Description = "Read operations on finances" }
+            );
+
+            modelBuilder.Entity<AppUser>().HasData(
+                new AppUser { Email = "roryaherne@gmail.com", FirstName="Rory", LastName="Aherne", Id = userId }
+            );
 
             modelBuilder.Entity<BankTransactionCategory>().HasData(
                 new BankTransactionCategory { Name = "Coaching Fees", ID = 1 , Created = now, LastModified = now, LastModifiedById = userId},

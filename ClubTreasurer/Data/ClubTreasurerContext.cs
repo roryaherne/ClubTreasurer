@@ -35,7 +35,7 @@ namespace ClubTreasurer.Models
             base.OnModelCreating(modelBuilder);
             modelBuilder.SetUniqueColumns();
 
-            modelBuilder.Seed("cc07b6bb-3f27-4123-a6e5-41a610794478");
+            modelBuilder.Seed();
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
