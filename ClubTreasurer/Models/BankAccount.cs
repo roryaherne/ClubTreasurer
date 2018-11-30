@@ -27,10 +27,6 @@ namespace ClubTreasurer.Models
         [ForeignKey("LastModifiedBy")]
         public string LastModifiedById { get; set; }
 
-        //[ForeignKey("CreatedBy")]
-        //public string CreatedById { get; set; }
-
-        //public AppUser CreatedBy { get; set; }
         public AppUser LastModifiedBy { get; set; }
 
         #endregion

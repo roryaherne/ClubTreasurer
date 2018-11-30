@@ -34,13 +34,12 @@ namespace ClubTreasurer.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.SetUniqueColumns();
-
             modelBuilder.Seed();
         }
 
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
-            //OnBeforeSaving();
+            OnBeforeSaving();
             return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
         }
 
@@ -63,7 +62,6 @@ namespace ClubTreasurer.Models
 
                         case EntityState.Added:
                             auditable.Created = now;
-                            //auditable.CreatedById = authenticatedUserId;
                             auditable.LastModified = now;
                             auditable.LastModifiedById = authenticatedUserId;
                             break;
@@ -72,6 +70,6 @@ namespace ClubTreasurer.Models
             }
         }
 
-        public DbSet<ClubTreasurer.Models.AppRole> AppRole { get; set; }
+        public DbSet<AppRole> AppRole { get; set; }
     }
 }

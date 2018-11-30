@@ -23,7 +23,7 @@ namespace ClubTreasurer.Models
         public string Email { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
+        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
         public DateTime DOB { get; set; }
 
         public ICollection<BankAccount> BankAccounts { get; set; }

@@ -40,14 +40,14 @@ namespace ClubTreasurer.Models
             var now = DateTime.Now;
             var userId = Guid.NewGuid().ToString();
 
-            modelBuilder.Entity<AppRole>().HasData(
-                new AppRole { Name="Administrator", Description= "Administrator" },
-                new AppRole { Name = "FinaceEditor", Description = "CRUD operations on finances" },
-                new AppRole { Name = "FinanceReader", Description = "Read operations on finances" }
+            modelBuilder.Entity<AppUser>().HasData(
+                new AppUser { Email = "fake@fake.com", Id = userId, UserName = "seeder", EmailConfirmed = true }
             );
 
-            modelBuilder.Entity<AppUser>().HasData(
-                new AppUser { Email = "roryaherne@gmail.com", FirstName="Rory", LastName="Aherne", Id = userId }
+            modelBuilder.Entity<AppRole>().HasData(
+                new AppRole { Name="Administrator", Description= "Administrator", LastModified = now, LastModifiedById = userId},
+                new AppRole { Name = "FinaceEditor", Description = "CRUD operations on finances", LastModified = now, LastModifiedById = userId },
+                new AppRole { Name = "FinanceReader", Description = "Read operations on finances", LastModified = now, LastModifiedById = userId }
             );
 
             modelBuilder.Entity<BankTransactionCategory>().HasData(

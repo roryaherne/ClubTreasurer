@@ -1,0 +1,4 @@
+﻿1. Add view /player/card viewable only by admin_y
+	- contains id card in html and button to generate as pdf and email to player
+		- look at tool: https://code.msdn.microsoft.com/Convert-from-HTML-to-PDF-d63582e8
+	- requires player image be uploaded (and resized?) to db

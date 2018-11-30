@@ -14,9 +14,6 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Player[0].Image)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Player[0].Position)
             </th>
             <th>
@@ -43,9 +40,6 @@
     <tbody>
 @foreach (var item in Model.Player) {
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Position.Name)
             </td>

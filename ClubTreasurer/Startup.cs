@@ -75,7 +75,6 @@ namespace ClubTreasurer
             app.UseMvc();
 
             //IdentitySeed.Initialize(context, userManager, roleManager).Wait();
-            
         }
     }
 }

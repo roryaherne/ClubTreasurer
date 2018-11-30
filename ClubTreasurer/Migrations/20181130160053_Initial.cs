@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace ClubTreasurer.Migrations
 {
-    public partial class InitialCreate : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -313,71 +313,6 @@ namespace ClubTreasurer.Migrations
                         principalTable: "BankTransactionCategorys",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "City", "ConcurrencyStamp", "Country", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "PostalCode", "Province", "SecurityStamp", "Street", "TwoFactorEnabled", "UserName" },
-                values: new object[] { "f279a045-9091-4201-834a-8105e3eebdc7", 0, null, "4dae6cae-930b-4378-a6ae-b8ea7ae8376e", null, "roryaherne@gmail.com", false, "Rory", "Aherne", false, null, null, null, null, null, false, null, null, null, null, false, null });
-
-            migrationBuilder.InsertData(
-                table: "BankTransactionCategorys",
-                columns: new[] { "ID", "Created", "Description", "LastModified", "LastModifiedById", "Name" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), null, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Coaching Fees" },
-                    { 2, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), null, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Gym Fees" },
-                    { 3, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), null, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Membership Fees" },
-                    { 4, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), null, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Old Boys Supporters" },
-                    { 5, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), null, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Sponsorship" },
-                    { 6, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), null, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Travel Expenses" },
-                    { 7, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), null, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Coaches Wages" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "PlayerPositions",
-                columns: new[] { "ID", "Created", "LastModified", "LastModifiedById", "Name" },
-                values: new object[,]
-                {
-                    { 8, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Second Row" },
-                    { 7, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Flanker" },
-                    { 6, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Number 8" },
-                    { 5, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Scrum Half" },
-                    { 2, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Winger" },
-                    { 3, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Center" },
-                    { 9, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Hooker" },
-                    { 1, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Full Back" },
-                    { 4, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Out Half" },
-                    { 10, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Prop" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Persons",
-                columns: new[] { "ID", "Created", "DOB", "Discriminator", "Email", "FirstName", "LastModified", "LastModifiedById", "LastName", "Image", "PositionId" },
-                values: new object[,]
-                {
-                    { 4, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1991, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Kristin", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Hiltpot", null, 2 },
-                    { 5, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1990, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Philip", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Westerlund", null, 10 },
-                    { 3, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1998, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Julia", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Hensler", null, 10 },
-                    { 1, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1989, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Max", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Büttner", null, 9 },
-                    { 15, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1990, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Sebastian", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Müller", null, 8 },
-                    { 9, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1994, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Thomas", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Tripp", null, 8 },
-                    { 21, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1991, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Lukas", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Kolb", null, 7 },
-                    { 19, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1995, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Isabella", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Luke", null, 5 },
-                    { 17, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1996, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Tom", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Millen", null, 5 },
-                    { 2, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1983, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Jeremie", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "DeJean", null, 5 },
-                    { 18, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1985, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Mathias", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Märk", null, 4 },
-                    { 11, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1995, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Florian", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Rudiferia", null, 4 },
-                    { 16, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1995, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Benjamin", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Rabl", null, 3 },
-                    { 20, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1989, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Gerald", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Lerchbaumer", null, 2 },
-                    { 14, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1990, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Nesar", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Nazari", null, 2 },
-                    { 13, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1993, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Christian", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Pöhl", null, 2 },
-                    { 10, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1998, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Davide", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Sorvillo", null, 2 },
-                    { 8, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1989, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Nils", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Unthan", null, 2 },
-                    { 7, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1994, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Anna", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Wallensteiner", null, 2 },
-                    { 6, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1998, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Hannah", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Werkgarner", null, 2 },
-                    { 12, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1991, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Barbara", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Rieger", null, 10 },
-                    { 22, new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), new DateTime(1993, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), "Player", null, "Khvistani", new DateTime(2018, 11, 2, 17, 30, 55, 817, DateTimeKind.Local), "f279a045-9091-4201-834a-8105e3eebdc7", "Giorgi", null, 10 }
                 });
 
             migrationBuilder.CreateIndex(
