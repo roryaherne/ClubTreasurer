@@ -1,0 +1,44 @@
+﻿#IdCard {
+    background-image: url("../images/IdCardBg.jpg");
+    width: 505px;
+    height: 320px;
+    background-size: cover;
+    position: relative;
+}
+
+#IdCard .duration {
+    position: absolute;
+    top: 40px;
+    text-align: center;
+    width: 100%;
+    font-size: 30px;
+}
+
+#IdCard img.player-image {
+    width: 140px;
+    height: 190px;
+    position: absolute;
+    top: 90px;
+    left: 17px;
+}
+
+#IdCard .name {
+    position: absolute;
+    top: 86px;
+    left: 240px;
+    font-size: 20px;
+}
+
+#IdCard .birthdate {
+    position: absolute;
+    top: 129px;
+    left: 240px;
+    font-size: 20px;
+}
+
+#IdCard .position {
+    position: absolute;
+    top: 170px;
+    left: 240px;
+    font-size: 20px;
+}

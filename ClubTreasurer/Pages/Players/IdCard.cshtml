@@ -1,0 +1,36 @@
+﻿@page
+@model ClubTreasurer.Pages.Players.IdCardModel
+
+@{
+    ViewData["Title"] = "IdCard";
+}
+
+<h2>Id Card</h2>
+
+<div>
+    <h4>@Model.Player.FullName</h4>
+    <hr />
+    <div id="IdCard">
+        <div class="duration">
+            <label>@ViewBag.Duration</label>
+        </div>
+        <img src="@ViewBag.ImageUrl" alt="Player Image" class="player-image"/>
+        <div class="name">
+            <label>@Model.Player.FullName</label>
+        </div>
+        <div class="birthdate">
+            <label>@Html.DisplayFor(model => model.Player.DOB)</label>
+        </div>
+        <div class="position">
+            <label>@Html.DisplayFor(model => model.Player.Position.Name)</label>
+        </div>
+    </div>
+    
+</div>
+<form id="EmailAsPdf" method="post" role="form">
+    <div>
+        <button type="submit" name="culture" value="@Model.Player.ID">
+            Email as PDF
+        </button>
+    </div>
+</form>
