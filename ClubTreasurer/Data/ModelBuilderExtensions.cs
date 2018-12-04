@@ -38,14 +38,13 @@ namespace ClubTreasurer.Models
         public static void Seed(this ModelBuilder modelBuilder)
         {
             var now = DateTime.Now;
-            var userId = Guid.NewGuid().ToString();
+            var userId = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e"; //Guid.NewGuid().ToString();
 
             modelBuilder.Entity<AppUser>().HasData(
                 new AppUser { Email = "fake@fake.com", Id = userId, UserName = "seeder", EmailConfirmed = true }
             );
 
             modelBuilder.Entity<AppRole>().HasData(
-                new AppRole { Name="Administrator", Description= "Administrator", LastModified = now, LastModifiedById = userId},
                 new AppRole { Name = "FinaceEditor", Description = "CRUD operations on finances", LastModified = now, LastModifiedById = userId },
                 new AppRole { Name = "FinanceReader", Description = "Read operations on finances", LastModified = now, LastModifiedById = userId }
             );

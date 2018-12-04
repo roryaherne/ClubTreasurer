@@ -1,4 +1,5 @@
-﻿using ClubTreasurer.Interfaces;
+﻿using BankTransactions.SerializationModels;
+using ClubTreasurer.Interfaces;
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,9 +11,12 @@ namespace ClubTreasurer.Models
         public int ID { get; set; }
 
         [Required]
+        [DataType(DataType.Currency)]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Amount { get; set; }
 
         public string Reference { get; set; }
+        public string ReferenceNumber { get; set; }
 
         [ForeignKey("TransactionCategory")]
         public int TransactionCategoryId { get; set; }
@@ -29,11 +33,6 @@ namespace ClubTreasurer.Models
 
         [ForeignKey("LastModifiedBy")]
         public string LastModifiedById { get; set; }
-
-        //[ForeignKey("CreatedBy")]
-        //public string CreatedById { get; set; }
-
-        //public AppUser CreatedBy { get; set; }
         public AppUser LastModifiedBy { get; set; }
 
         #endregion

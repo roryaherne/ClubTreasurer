@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ClubTreasurer.Models;
 using ClubTreasurer.Utilities;
 using ClubTreasurer.Interfaces;
+using ClubTreasurer.Data;
 
 namespace ClubTreasurer
 {
@@ -71,7 +72,7 @@ namespace ClubTreasurer
 
             app.UseMvc();
 
-            //IdentitySeed.Initialize(context, userManager, roleManager).Wait();
+            IdentitySeed.Initialize(context, userManager, roleManager).Wait();
         }
     }
 }

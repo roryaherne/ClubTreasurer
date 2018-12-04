@@ -46,6 +46,8 @@ namespace ClubTreasurer.Models
         private void OnBeforeSaving()
         {
             var entries = ChangeTracker.Entries();
+            if (_httpContextAccessor.HttpContext?.User == null)
+                return;
             var authenticatedUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
             var now = DateTime.Now;

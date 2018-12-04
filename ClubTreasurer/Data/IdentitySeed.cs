@@ -27,7 +27,7 @@ namespace ClubTreasurer.Data
             }
            
 
-            if (await userManager.FindByNameAsync("admin") == null)
+            if (await userManager.FindByEmailAsync("roryaherne@gmail.com") == null)
             {
                 var user = new AppUser
                 {

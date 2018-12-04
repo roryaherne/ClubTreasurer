@@ -23,7 +23,6 @@ namespace ClubTreasurer.Models
         public string Email { get; set; }
 
         [DataType(DataType.Date)]
-        //[DisplayFormat(DataFormatString = "{0:dd-MM-yyy}", ApplyFormatInEditMode = true)]
         public DateTime DOB { get; set; }
 
         public ICollection<BankAccount> BankAccounts { get; set; }
@@ -34,11 +33,6 @@ namespace ClubTreasurer.Models
 
         [ForeignKey("LastModifiedBy")]
         public string LastModifiedById { get; set; }
-
-        //[ForeignKey("CreatedBy")]
-        //public string CreatedById { get; set; }
-
-        //public AppUser CreatedBy { get; set; }
         public AppUser LastModifiedBy { get; set; }
 
         #endregion
