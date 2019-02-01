@@ -20,7 +20,6 @@ namespace ClubTreasurer.Pages.TransactionCategories
 
         public IActionResult OnGet()
         {
-        ViewData["LastModifiedById"] = new SelectList(_context.AppUsers, "Id", "Id");
             return Page();
         }
 

@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using ClubTreasurer.Models;
+using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace ClubTreasurer.Areas.Identity.Pages.Account
 {
@@ -18,11 +20,15 @@ namespace ClubTreasurer.Areas.Identity.Pages.Account
     {
         private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly IConfiguration _configuration;
+        private readonly IHostingEnvironment _env;
 
-        public LoginModel(SignInManager<AppUser> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(SignInManager<AppUser> signInManager, ILogger<LoginModel> logger, IConfiguration configuration, IHostingEnvironment env)
         {
             _signInManager = signInManager;
             _logger = logger;
+            _configuration = configuration;
+            _env = env;
         }
 
         [BindProperty]
@@ -51,6 +57,23 @@ namespace ClubTreasurer.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
+            //TODO: Delete after deployment
+            //sign me in during development
+            if (_env.IsDevelopment())
+            {
+                try
+                {
+                    var passwords = _configuration.GetSection("Passwords");
+                    var adminPassword = passwords.GetValue<string>("AdminPassword");
+                    var result = await _signInManager.PasswordSignInAsync("roryaherne@gmail.com", adminPassword, true, lockoutOnFailure: false);
+                    if (result.Succeeded)
+                        LocalRedirect(returnUrl);
+                }
+                catch (Exception)
+                {
+                    //do nothing;
+                }
+            }
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);

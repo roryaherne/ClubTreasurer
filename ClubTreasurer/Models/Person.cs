@@ -10,6 +10,9 @@ namespace ClubTreasurer.Models
     {
         public int ID { get; set; }
 
+        [Display(Name = "Title")]
+        public string Title { get; set; }
+
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
@@ -17,7 +20,7 @@ namespace ClubTreasurer.Models
         public string LastName { get; set; }
 
         [Display(Name = "Name")]
-        public string FullName { get { return $"{FirstName} {LastName}"; } }
+        public string FullName { get { return $"{Title} {FirstName} {LastName}"; } }
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

@@ -11,19 +11,21 @@ namespace ClubTreasurer.Pages.Players
 {
     public class IndexModel : PageModel
     {
-        private readonly ClubTreasurer.Models.ClubTreasurerContext _context;
+        private readonly ClubTreasurerContext _context;
 
-        public IndexModel(ClubTreasurer.Models.ClubTreasurerContext context)
+        public IndexModel(ClubTreasurerContext context)
         {
             _context = context;
         }
 
-        public IList<Player> Player { get;set; }
+        public IList<Player> Players { get;set; }
 
         public async Task OnGetAsync()
         {
-            Player = await _context.Players
-                .Include(p => p.Position).ToListAsync();
+            Players = await _context.Players
+                .Include(p => p.Position)
+                .OrderBy(p => p.LastName)
+                .ToListAsync();
         }
     }
 }

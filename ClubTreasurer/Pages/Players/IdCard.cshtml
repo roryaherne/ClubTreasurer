@@ -8,7 +8,7 @@
 <h2>Id Card</h2>
 
 <div>
-    <h4>@Model.Player.FullName</h4>
+    <h4>@Model.IdCard.Player.FullName</h4>
     <hr />
     <div id="IdCard">
         <div class="duration">
@@ -16,20 +16,20 @@
         </div>
         <img src="@ViewBag.ImageUrl" alt="Player Image" class="player-image"/>
         <div class="name">
-            <label>@Model.Player.FullName</label>
+            <label>@Model.IdCard.Player.FullName</label>
         </div>
         <div class="birthdate">
-            <label>@Html.DisplayFor(model => model.Player.DOB)</label>
+            <label>@Html.DisplayFor(model => Model.IdCard.Player.DOB)</label>
         </div>
         <div class="position">
-            <label>@Html.DisplayFor(model => model.Player.Position.Name)</label>
+            <label>@Html.DisplayFor(model => Model.IdCard.Player.Position.Name)</label>
         </div>
     </div>
     
 </div>
 <form id="EmailAsPdf" method="post" role="form">
     <div>
-        <button type="submit" name="culture" value="@Model.Player.ID">
+        <button type="submit" name="culture" value="@Model.IdCard.Player.ID">
             Email as PDF
         </button>
     </div>

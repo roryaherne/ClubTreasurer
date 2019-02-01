@@ -39,7 +39,13 @@
             @Html.DisplayNameFor(model => model.BankTransactionCategory.LastModifiedBy)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BankTransactionCategory.LastModifiedBy.Id)
+            @Html.DisplayFor(model => model.BankTransactionCategory.LastModifiedBy.UserName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.BankTransactionCategory.KeyWords)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.BankTransactionCategory.KeyWords)
         </dd>
     </dl>
 </div>

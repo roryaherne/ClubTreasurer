@@ -10,6 +10,8 @@ using ClubTreasurer.Models;
 using ClubTreasurer.Utilities;
 using ClubTreasurer.Interfaces;
 using ClubTreasurer.Data;
+using System;
+using System.Threading.Tasks;
 
 namespace ClubTreasurer
 {
@@ -51,7 +53,7 @@ namespace ClubTreasurer
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ClubTreasurerContext context, 
-            RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
+            RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
         {
             if (env.IsDevelopment())
             {
@@ -70,9 +72,32 @@ namespace ClubTreasurer
 
             app.UseAuthentication();
 
+            //TODO: Delete after deployment
+            if (env.IsDevelopment())
+            {
+                app.Use(async (httpContext, next) =>
+                {
+                    var user = httpContext.User.Identity.Name;
+                    DeveloperLogin(httpContext).Wait();
+                    await next.Invoke();
+                });
+            }
+
             app.UseMvc();
 
-            IdentitySeed.Initialize(context, userManager, roleManager).Wait();
+            IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
+        }
+
+        private async Task DeveloperLogin(HttpContext httpContext)
+        {
+
+            var UserManager = httpContext.RequestServices.GetRequiredService<UserManager<AppUser>>();
+            var signInManager = httpContext.RequestServices.GetRequiredService<SignInManager<AppUser>>();
+
+            var passwords = Configuration.GetSection("Passwords");
+            var adminPassword = passwords.GetValue<string>("AdminPassword");
+            var result = await signInManager.PasswordSignInAsync("roryaherne@gmail.com", adminPassword, true, lockoutOnFailure: false);
+            return;
         }
     }
 }

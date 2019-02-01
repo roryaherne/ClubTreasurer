@@ -1,7 +1,3 @@
-﻿1. Add view /player/card viewable only by admin_y
-	- contains id card in html and button to generate as pdf and email to player
-		- look at tool: https://code.msdn.microsoft.com/Convert-from-HTML-to-PDF-d63582e8
+﻿1. Import transactions from bank
+	-> Fails on bankAccount.PersonId. Do we really need to have a person linked to an account?
 
-2. Update player model with:
-	- membership paid from - to
-	- gym fees paid from - to

@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ClubTreasurer.Models;
 using System;
-using ClubTreasurer.Utilities;
 using ClubTreasurer.Interfaces;
 using Microsoft.Extensions.Configuration;
+using ClubTreasurer.ViewModels;
 
 namespace ClubTreasurer.Pages.Players
 {
@@ -22,8 +22,7 @@ namespace ClubTreasurer.Pages.Players
             _emailSender = emailSender;
             _configuration = config;
         }
-
-        public Player Player { get; set; }
+        public IdCardViewModel IdCard { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,18 +31,21 @@ namespace ClubTreasurer.Pages.Players
                 return NotFound();
             }
 
-            Player = await _context.Players
+            var player = await _context.Players
                 .Include(p => p.Position).FirstOrDefaultAsync(m => m.ID == id);
 
-            if (Player == null)
+            if (player == null)
             {
                 return NotFound();
             }
 
-            if (Player.Image != null)
-                ViewData["ImageUrl"] = "data:image;base64," + Convert.ToBase64String(Player.Image);
+            //TODO: Don't allow card for player not paid up on fees AND gym fees
+            IdCard.FeesPaidUntil = "Jan - Dec" + DateTime.Now.Year;
 
-            ViewData["Duration"] = "2019";
+            IdCard.Player = player;
+            if (player.Image != null)
+                IdCard.ImageUrl = "data:image;base64," + Convert.ToBase64String(player.Image);
+
 
             return Page();
         }

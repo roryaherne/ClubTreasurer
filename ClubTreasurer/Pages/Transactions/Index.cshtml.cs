@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using ClubTreasurer.Models;
@@ -11,9 +8,9 @@ namespace ClubTreasurer.Pages.Transactions
 {
     public class IndexModel : PageModel
     {
-        private readonly ClubTreasurer.Models.ClubTreasurerContext _context;
+        private readonly ClubTreasurerContext _context;
 
-        public IndexModel(ClubTreasurer.Models.ClubTreasurerContext context)
+        public IndexModel(ClubTreasurerContext context)
         {
             _context = context;
         }

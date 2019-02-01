@@ -1,8 +1,7 @@
 ﻿using ClubTreasurer.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ClubTreasurer.Data
@@ -11,7 +10,7 @@ namespace ClubTreasurer.Data
     {
         public static async Task Initialize(ClubTreasurerContext context,
                               UserManager<AppUser> userManager,
-                              RoleManager<AppRole> roleManager)
+                              RoleManager<AppRole> roleManager, IConfiguration configuration)
         {
             context.Database.EnsureCreated();
 
@@ -19,7 +18,10 @@ namespace ClubTreasurer.Data
             string adminRole = "Admin";
             string adminDescription = "This is the administrator role";
 
-            string adminPassword = "Ariapro21989!";
+            var emailSettings = configuration.GetSection("EmailSettings");
+
+            var passwords = configuration.GetSection("Passwords");
+            var adminPassword = passwords.GetValue<string>("AdminPassword");
 
             if (await roleManager.FindByNameAsync(adminRole) == null)
             {

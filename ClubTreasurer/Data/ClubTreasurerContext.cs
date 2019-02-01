@@ -28,6 +28,7 @@ namespace ClubTreasurer.Models
         public DbSet<Player> Players { get; set; }
         public DbSet<PlayerPosition> PlayerPositions { get; set; }
         public DbSet<AppUser> AppUsers { get; set; }
+        public DbSet<AppRole> AppRole { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -71,7 +72,5 @@ namespace ClubTreasurer.Models
                 }
             }
         }
-
-        public DbSet<AppRole> AppRole { get; set; }
     }
 }

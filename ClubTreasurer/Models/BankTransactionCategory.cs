@@ -3,8 +3,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ClubTreasurer.Models
 {
@@ -15,6 +13,8 @@ namespace ClubTreasurer.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
+        [RegularExpression(@"^([\w]+,)*[\w]+$", ErrorMessage = "Must be a comma separated list")]
+        public string KeyWords { get; set; }
 
         public ICollection<BankTransaction> Transactions { get; set; }
 

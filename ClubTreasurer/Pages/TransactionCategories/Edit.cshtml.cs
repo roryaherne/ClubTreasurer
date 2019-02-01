@@ -36,7 +36,6 @@ namespace ClubTreasurer.Pages.TransactionCategories
             {
                 return NotFound();
             }
-           ViewData["LastModifiedById"] = new SelectList(_context.AppUsers, "Id", "Id");
             return Page();
         }
 
