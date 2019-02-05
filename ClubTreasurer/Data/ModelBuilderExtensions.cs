@@ -1,7 +1,5 @@
-﻿using ClubTreasurer.Interfaces;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using System;
-using System.Security.Claims;
 
 namespace ClubTreasurer.Models
 {
@@ -50,12 +48,12 @@ namespace ClubTreasurer.Models
             );
 
             modelBuilder.Entity<BankTransactionCategory>().HasData(
-                new BankTransactionCategory { Name = "Coaching Fees", ID = 1 , Created = now, LastModified = now, LastModifiedById = userId},
-                new BankTransactionCategory { Name = "Gym Fees", ID = 2 , Created = now, LastModified = now, LastModifiedById = userId},
-                new BankTransactionCategory { Name = "Membership Fees", ID = 3 , Created = now, LastModified = now, LastModifiedById = userId},
-                new BankTransactionCategory { Name = "Old Boys Supporters", ID = 4 , Created = now, LastModified = now, LastModifiedById = userId},
-                new BankTransactionCategory { Name = "Sponsorship", ID = 5 , Created = now, LastModified = now, LastModifiedById = userId},
-                new BankTransactionCategory { Name = "Travel Expenses", ID = 6 , Created = now, LastModified = now, LastModifiedById = userId},
+                new BankTransactionCategory { Name = "Coaching Fees", ID = 1 , Created = now, LastModified = now, LastModifiedById = userId, KeyWords="coaching"},
+                new BankTransactionCategory { Name = "Gym Fees", ID = 2 , Created = now, LastModified = now, LastModifiedById = userId, KeyWords="gym,fitness"},
+                new BankTransactionCategory { Name = "Membership Fees", ID = 3 , Created = now, LastModified = now, LastModifiedById = userId, KeyWords = "mitglied,membership"},
+                new BankTransactionCategory { Name = "Old Boys Supporters", ID = 4 , Created = now, LastModified = now, LastModifiedById = userId, KeyWords = "old boys,oldboys"},
+                new BankTransactionCategory { Name = "Sponsorship", ID = 5 , Created = now, LastModified = now, LastModifiedById = userId, KeyWords = "sponsor"},
+                new BankTransactionCategory { Name = "Travel Expenses", ID = 6 , Created = now, LastModified = now, LastModifiedById = userId, KeyWords = "travel,fuel,train,zug" },
                 new BankTransactionCategory { Name = "Coaches Wages", ID = 7 , Created = now, LastModified = now, LastModifiedById = userId}
             );
 

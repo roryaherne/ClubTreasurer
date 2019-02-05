@@ -1,26 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using ClubTreasurer.Models;
+using ClubTreasurer.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using ClubTreasurer.Models;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace ClubTreasurer.Pages.Transactions
 {
     public class EditModel : PageModel
     {
-        private readonly ClubTreasurer.Models.ClubTreasurerContext _context;
+        private readonly ClubTreasurerContext _context;
 
-        public EditModel(ClubTreasurer.Models.ClubTreasurerContext context)
+        public EditModel(ClubTreasurerContext context)
         {
             _context = context;
         }
 
         [BindProperty]
-        public BankTransaction BankTransaction { get; set; }
+        public int TransactionCategoryId { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -29,45 +28,37 @@ namespace ClubTreasurer.Pages.Transactions
                 return NotFound();
             }
 
-            BankTransaction = await _context.BankTransactions
-                .Include(b => b.Account)
-                .Include(b => b.LastModifiedBy)
+            var bankTransaction = await _context.BankTransactions.AsNoTracking()
                 .Include(b => b.TransactionCategory).FirstOrDefaultAsync(m => m.ID == id);
 
-            if (BankTransaction == null)
+            if (bankTransaction == null)
             {
                 return NotFound();
             }
-           ViewData["AccountId"] = new SelectList(_context.BankAccounts, "ID", "IBAN");
-           ViewData["LastModifiedById"] = new SelectList(_context.AppUsers, "Id", "Id");
-           ViewData["TransactionCategoryId"] = new SelectList(_context.BankTransactionCategorys, "ID", "Name");
+
+            ViewData["TransactionCategoryId"] = new SelectList(_context.BankTransactionCategorys, "ID", "Name");
+            TransactionCategoryId = bankTransaction.TransactionCategoryId;
+
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
 
-            _context.Attach(BankTransaction).State = EntityState.Modified;
+            var transactionToModify = await _context.BankTransactions
+                .Include(b => b.TransactionCategory).FirstOrDefaultAsync(m => m.ID == id);
 
-            try
+            if (await TryUpdateModelAsync<BankTransaction>(transactionToModify, "", t => t.TransactionCategoryId))
             {
                 await _context.SaveChangesAsync();
+                return RedirectToPage("./Index");
             }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!BankTransactionExists(BankTransaction.ID))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+
 
             return RedirectToPage("./Index");
         }

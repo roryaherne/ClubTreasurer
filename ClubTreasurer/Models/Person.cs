@@ -20,7 +20,20 @@ namespace ClubTreasurer.Models
         public string LastName { get; set; }
 
         [Display(Name = "Name")]
-        public string FullName { get { return $"{Title} {FirstName} {LastName}"; } }
+        public string FullName {
+            get {
+                return string.IsNullOrWhiteSpace(Title)? $"{FirstName} {LastName}" : $"{Title} {FirstName} {LastName}";
+            }
+        }
+
+        [Display(Name = "Name")]
+        public string FullNameReverse
+        {
+            get
+            {
+                return string.IsNullOrWhiteSpace(Title) ? $"{LastName} {FirstName}" : $"{Title} {LastName} {FirstName}";
+            }
+        }
 
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }

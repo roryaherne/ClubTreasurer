@@ -13,7 +13,8 @@ namespace ClubTreasurer.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        [RegularExpression(@"^([\w]+,)*[\w]+$", ErrorMessage = "Must be a comma separated list")]
+
+        [RegularExpression(@"^([\w\s\-]+,)*[\w\s\-]+$", ErrorMessage = "Must be a comma separated list")]
         public string KeyWords { get; set; }
 
         public ICollection<BankTransaction> Transactions { get; set; }

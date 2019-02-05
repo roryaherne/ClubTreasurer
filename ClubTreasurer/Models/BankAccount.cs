@@ -15,6 +15,9 @@ namespace ClubTreasurer.Models
 
         public string Name { get; set; }
 
+        public int? PersonId { get; set; }
+        public Person Person { get; set; }
+
         public ICollection<BankTransaction> Transactions { get; set; }
 
         #region Audit Props

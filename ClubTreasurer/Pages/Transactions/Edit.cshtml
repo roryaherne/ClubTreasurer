@@ -13,47 +13,11 @@
     <div class="col-md-4">
         <form method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="BankTransaction.ID" />
             <div class="form-group">
-                <label asp-for="BankTransaction.Amount" class="control-label"></label>
-                <input asp-for="BankTransaction.Amount" class="form-control" />
-                <span asp-validation-for="BankTransaction.Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankTransaction.Reference" class="control-label"></label>
-                <input asp-for="BankTransaction.Reference" class="form-control" />
-                <span asp-validation-for="BankTransaction.Reference" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankTransaction.ReferenceNumber" class="control-label"></label>
-                <input asp-for="BankTransaction.ReferenceNumber" class="form-control" />
-                <span asp-validation-for="BankTransaction.ReferenceNumber" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankTransaction.TransactionCategoryId" class="control-label"></label>
-                <select asp-for="BankTransaction.TransactionCategoryId" class="form-control" asp-items="ViewBag.TransactionCategoryId"></select>
-                <span asp-validation-for="BankTransaction.TransactionCategoryId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankTransaction.AccountId" class="control-label"></label>
-                <select asp-for="BankTransaction.AccountId" class="form-control" asp-items="ViewBag.AccountId"></select>
-                <span asp-validation-for="BankTransaction.AccountId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankTransaction.Created" class="control-label"></label>
-                <input asp-for="BankTransaction.Created" class="form-control" />
-                <span asp-validation-for="BankTransaction.Created" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankTransaction.LastModified" class="control-label"></label>
-                <input asp-for="BankTransaction.LastModified" class="form-control" />
-                <span asp-validation-for="BankTransaction.LastModified" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="BankTransaction.LastModifiedById" class="control-label"></label>
-                <select asp-for="BankTransaction.LastModifiedById" class="form-control" asp-items="ViewBag.LastModifiedById"></select>
-                <span asp-validation-for="BankTransaction.LastModifiedById" class="text-danger"></span>
-            </div>
+                <label asp-for="TransactionCategoryId" class="control-label"></label>
+                <select asp-for="TransactionCategoryId" class="form-control" asp-items="ViewBag.TransactionCategoryId"></select>
+                <span asp-validation-for="TransactionCategoryId" class="text-danger"></span>
+            </div>   
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

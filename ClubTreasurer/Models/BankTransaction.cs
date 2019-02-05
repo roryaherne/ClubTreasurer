@@ -18,12 +18,20 @@ namespace ClubTreasurer.Models
         public string Reference { get; set; }
         public string ReferenceNumber { get; set; }
 
+        [Required]
+        [Display(Name = "Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        public DateTime BookingDate { get; set; }
+
         [ForeignKey("TransactionCategory")]
+        [Display(Name = "Category")]
         public int TransactionCategoryId { get; set; }
 
         [ForeignKey("Account")]
         public int AccountId { get; set; }
 
+        [Display(Name = "Category")]
         public BankTransactionCategory TransactionCategory { get; set; }
         public BankAccount Account { get; set; }
 

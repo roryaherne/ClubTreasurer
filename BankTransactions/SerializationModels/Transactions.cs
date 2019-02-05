@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Globalization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
@@ -8,7 +9,7 @@ namespace BankTransactions.SerializationModels
     public partial class GeorgeTransaction
     {
         [JsonProperty("booking")]
-        public string Booking { get; set; }
+        public DateTime BookingDate { get; set; }
 
         [JsonProperty("valuation")]
         public object Valuation { get; set; }

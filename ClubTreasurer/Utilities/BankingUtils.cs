@@ -15,12 +15,14 @@ namespace ClubTreasurer.Utilities
             List<BankTransaction> transactions = new List<BankTransaction>();
             foreach (var transaction in georgeTransactions)
             {
-                transactions.Add(new BankTransaction() {
-                       Amount = (decimal)(transaction.Amount.Value * Math.Pow(10.00, -transaction.Amount.Precision)),
-                       Reference = transaction.Reference,
-                       ReferenceNumber = transaction.ReferenceNumber,
-                       Account = await GetOrCreateNewAccount(context, transaction),
-                       TransactionCategory = await GetOrCreateNewCategory(context, transaction)
+                transactions.Add(new BankTransaction()
+                {
+                    BookingDate = transaction.BookingDate,
+                    Amount = (decimal)(transaction.Amount.Value * Math.Pow(10.00, -transaction.Amount.Precision)),
+                    Reference = transaction.Reference,
+                    ReferenceNumber = transaction.ReferenceNumber,
+                    Account = await GetOrCreateNewAccount(context, transaction),
+                    TransactionCategory = await GetOrCreateNewCategory(context, transaction)
                 });
             }
             context.BankTransactions.AddRange(transactions);
@@ -39,14 +41,18 @@ namespace ClubTreasurer.Utilities
                     IBAN = transaction.PartnerAccount.Iban,
                     Name = transaction.PartnerName
                 };
-                
+
                 context.BankAccounts.Add(account);
                 await context.SaveChangesAsync();
 
                 //try to assign it to a person
-                var person = context.Persons.Where(p => p.FullName == transaction.PartnerName).FirstOrDefault();
-                if(person != null) { 
+                var person = context.Persons.Where(p => p.FullName == transaction.PartnerName || p.FullNameReverse == transaction.PartnerName).FirstOrDefault();
+                if (person != null)
+                {
                     context.Attach(person).State = EntityState.Modified;
+                    if (person.BankAccounts == null)
+                        person.BankAccounts = new List<BankAccount>();
+                    person.BankAccounts.Add(account);
                     await context.SaveChangesAsync();
                 }
                 return account;
@@ -55,7 +61,7 @@ namespace ClubTreasurer.Utilities
 
         private static async Task<BankTransactionCategory> GetOrCreateNewCategory(ClubTreasurerContext context, GeorgeTransaction transaction)
         {
-            var category = await context.BankTransactionCategorys.FirstOrDefaultAsync(a => a.KeyWords.Contains(transaction.Reference));
+            var category = await SearchByMultipleKeyword(context, transaction.Reference);
             if (category != null)
                 return category;
             else category = await context.BankTransactionCategorys.FirstOrDefaultAsync(a => a.Name == "Undefined");
@@ -71,7 +77,21 @@ namespace ClubTreasurer.Utilities
                 await context.SaveChangesAsync();
             }
             return category;
+        }
 
+        public static async Task<BankTransactionCategory> SearchByMultipleKeyword(ClubTreasurerContext context, string reference)
+        {
+            string[] keywords = reference.Split(',');
+
+            var allCategories = await context.BankTransactionCategorys.Where(c => c.KeyWords != null).ToListAsync();
+
+            foreach (var category in allCategories)
+            {
+                if (category.KeyWords.Split(',').Any(s => reference.Contains(s, StringComparison.OrdinalIgnoreCase)))
+                    return category;
+            }
+
+            return null;
         }
     }
 }

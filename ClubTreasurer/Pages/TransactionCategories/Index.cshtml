@@ -20,13 +20,7 @@
                 @Html.DisplayNameFor(model => model.BankTransactionCategory[0].Description)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.BankTransactionCategory[0].Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BankTransactionCategory[0].LastModified)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BankTransactionCategory[0].LastModifiedBy)
+                @Html.DisplayNameFor(model => model.BankTransactionCategory[0].KeyWords)
             </th>
             <th></th>
         </tr>
@@ -41,13 +35,7 @@
                 @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModified)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedBy.UserName)
+                @Html.DisplayFor(modelItem => item.KeyWords)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
