@@ -1,6 +1,7 @@
 ﻿using BankTransactions.SerializationModels;
 using ClubTreasurer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace ClubTreasurer.Utilities
 {
     public static class BankingUtils
     {
-        public static async Task SaveGeorgeTransactionsToDB(ClubTreasurerContext context, List<GeorgeTransaction> georgeTransactions)
+        public static async Task<bool> SaveGeorgeTransactionsToDB(ClubTreasurerContext context, List<GeorgeTransaction> georgeTransactions)
         {
             List<BankTransaction> transactions = new List<BankTransaction>();
             foreach (var transaction in georgeTransactions)
@@ -25,8 +26,19 @@ namespace ClubTreasurer.Utilities
                     TransactionCategory = await GetOrCreateNewCategory(context, transaction)
                 });
             }
-            context.BankTransactions.AddRange(transactions);
-            await context.SaveChangesAsync();
+
+            try
+            {
+                context.BankTransactions.UpdateRange(transactions);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception)
+            {
+                //tried to add duplicate data
+                return false;
+            }
+            
         }
 
         private static async Task<BankAccount> GetOrCreateNewAccount(ClubTreasurerContext context, GeorgeTransaction transaction)

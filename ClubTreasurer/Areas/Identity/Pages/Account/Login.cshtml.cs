@@ -57,23 +57,6 @@ namespace ClubTreasurer.Areas.Identity.Pages.Account
 
         public async Task OnGetAsync(string returnUrl = null)
         {
-            //TODO: Delete after deployment
-            //sign me in during development
-            if (_env.IsDevelopment())
-            {
-                try
-                {
-                    var passwords = _configuration.GetSection("Passwords");
-                    var adminPassword = passwords.GetValue<string>("AdminPassword");
-                    var result = await _signInManager.PasswordSignInAsync("roryaherne@gmail.com", adminPassword, true, lockoutOnFailure: false);
-                    if (result.Succeeded)
-                        LocalRedirect(returnUrl);
-                }
-                catch (Exception)
-                {
-                    //do nothing;
-                }
-            }
             if (!string.IsNullOrEmpty(ErrorMessage))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessage);

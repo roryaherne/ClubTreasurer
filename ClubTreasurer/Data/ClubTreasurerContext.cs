@@ -38,6 +38,12 @@ namespace ClubTreasurer.Models
             modelBuilder.Seed();
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.EnableSensitiveDataLogging();
+        }
+
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
             OnBeforeSaving();

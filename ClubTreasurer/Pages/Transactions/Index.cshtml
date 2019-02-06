@@ -9,8 +9,8 @@
 
 <p>
     <a asp-page="Import">Import</a> |
-    <a asp-page="./Index" asp-route-ingoings="true">Incoming</a>  |
-    <a asp-page="./Index" asp-route-outgoings="true">Outgoing</a> |
+    <a asp-page="./Index" asp-route-typeFilter="in">Incoming</a>  |
+    <a asp-page="./Index" asp-route-typeFilter="out">Outgoing</a> |
     <a asp-page="./Index">Back to full List</a>
 </p>
 <form asp-page="./Index" method="get">
@@ -18,7 +18,6 @@
         <p>
             Search:
             <input type="text" name="SearchString" value="@Model.CurrentFilter" />
-            <input type="submit" value="Search" class="btn btn-default" />
         </p>
     </div>
 </form>
@@ -46,9 +45,15 @@
                 </a>
             </th>
             <th>
-                <a asp-page="./Index" asp-route-sortOrder="@Model.CategorySort">
+                @*<a asp-page="./Index" asp-route-sortOrder="@Model.CategorySort">
                     @Html.DisplayNameFor(model => model.BankTransactions[0].TransactionCategory)
-                </a>
+                </a>*@
+                <form asp-page="./Index" method="get">
+                    <select asp-for="@Model.CategoryFilterId" 
+                            value="@Model.CategoryFilterId"
+                            onchange="this.form.submit()" 
+                            asp-items="ViewBag.Categories"></select>
+                </form>
             </th>
             <th></th>
         </tr>
@@ -79,12 +84,14 @@
                     @Html.DisplayFor(modelItem => item.Reference)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.TransactionCategory.Name)
+                    <a asp-page="/TransactionCategories/Details" asp-route-id="@item.TransactionCategory.ID">
+                        @Html.DisplayFor(modelItem => item.TransactionCategory.Name)
+                    </a>
+                    
                 </td>
                 <td>
                     <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a>
                 </td>
             </tr>
         }
@@ -100,6 +107,8 @@
    asp-route-sortOrder="@Model.CurrentSort"
    asp-route-pageIndex="@(Model.BankTransactions.PageIndex - 1)"
    asp-route-currentFilter="@Model.CurrentFilter"
+   asp-route-typeFilter="@Model.TypeFilter"
+   asp-route-categoryFilterId="@Model.CategoryFilterId"
    class="btn btn-default @prevDisabled">
     Previous
 </a>
@@ -107,6 +116,8 @@
    asp-route-sortOrder="@Model.CurrentSort"
    asp-route-pageIndex="@(Model.BankTransactions.PageIndex + 1)"
    asp-route-currentFilter="@Model.CurrentFilter"
+   asp-route-typeFilter="@Model.TypeFilter"
+   asp-route-categoryFilterId="@Model.CategoryFilterId"
    class="btn btn-default @nextDisabled">
     Next
 </a>

@@ -1,6 +1,8 @@
 ﻿using ClubTreasurer.Models;
 using ClubTreasurer.Utilities;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
@@ -21,19 +23,24 @@ namespace ClubTreasurer.Pages.Transactions
         public string ReferenceSort { get; set; }
         public string DateSort { get; set; }
         public string CategorySort { get; set; }
+
+        [BindProperty]
+        public int CategoryFilterId { get; set; }
         public string NameSort { get; set; }
         public string CurrentSort { get; set; }
-
+        public string TypeFilter { get; set; }
 
         public PaginatedList<BankTransaction> BankTransactions { get; set; }
 
-        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, int? pageIndex)
+        public async Task OnGetAsync(string sortOrder, string currentFilter, string searchString, string typeFilter, int categoryFilterId, int? pageIndex)
         {
             CurrentSort = sortOrder;
             ReferenceSort = string.IsNullOrEmpty(sortOrder) ? "ref_desc" : "";
             DateSort = sortOrder == "date" ? "date_desc" : "date";
             CategorySort = sortOrder == "category" ? "category_desc" : "category";
             NameSort = sortOrder == "name" ? "name_desc" : "name";
+            TypeFilter = typeFilter;
+            CategoryFilterId = categoryFilterId;
 
             if (searchString != null)
                 pageIndex = 1;
@@ -53,6 +60,17 @@ namespace ClubTreasurer.Pages.Transactions
                 || t.Account.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase) 
                 || t.TransactionCategory.Name.Contains(searchString, StringComparison.OrdinalIgnoreCase));
             }
+
+            if (!string.IsNullOrWhiteSpace(typeFilter))
+            {
+                if (typeFilter == "in")
+                    transactions = transactions.Where(t => t.Amount > 0);
+                else
+                    transactions = transactions.Where(t => t.Amount < 0);
+            }
+
+            if (CategoryFilterId > 0)
+                transactions = transactions.Where(t => t.TransactionCategoryId == CategoryFilterId);
 
             switch (sortOrder)
             {
@@ -86,6 +104,9 @@ namespace ClubTreasurer.Pages.Transactions
             }
 
             int pageSize = 15;
+            var selectList = new SelectList(_context.BankTransactionCategorys, "ID", "Name").ToList();
+            selectList.Insert(0, new SelectListItem { Text = "Category", Value = "0" });
+            ViewData["Categories"] = selectList;
             BankTransactions = await PaginatedList<BankTransaction>.CreateAsync(transactions.AsNoTracking(), pageIndex ?? 1, pageSize);
         }
     }

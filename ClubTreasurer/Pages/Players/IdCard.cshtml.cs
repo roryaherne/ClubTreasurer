@@ -63,10 +63,10 @@ namespace ClubTreasurer.Pages.Players
 
                 await _emailSender.SendEmailAsync("rory.aherne@sos-kd.org", subject, message, null);
 
-                //await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, "rory.aherne@sos-kd.org");
-                //await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, Player.Email);
+                await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, "rory.aherne@sos-kd.org");
+                await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, Player.Email);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 return Page();
             }

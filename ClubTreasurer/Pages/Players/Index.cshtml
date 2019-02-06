@@ -13,6 +13,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Players[0].LastName)
             </th>
@@ -36,34 +37,43 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Players) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DOB)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Position.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModified)
-            </td>
-            <td>
-                <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
-                <a asp-page="./IdCard" asp-route-id="@item.ID">Id Card</a> |
-                <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
-                <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model.Players)
+        {
+            var imageUrl = item.Image != null ? " data:image;base64," + Convert.ToBase64String(item.Image) : "";
+
+            <tr>
+                <td>
+                    @if (item.Image != null)
+                    {
+                        <img src="@imageUrl" alt="Player Image" class="player-image" width="20" height="20" style="border-radius: 50%;"/>
+                    }
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DOB)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Position.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastModified)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./IdCard" asp-route-id="@item.ID">Id Card</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

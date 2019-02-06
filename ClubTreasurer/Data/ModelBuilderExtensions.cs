@@ -31,6 +31,9 @@ namespace ClubTreasurer.Models
             modelBuilder.Entity<BankAccount>()
                 .HasIndex(b => b.IBAN)
                 .IsUnique();
+
+            modelBuilder.Entity<BankTransaction>()
+                .HasAlternateKey(t => t.ReferenceNumber);
         }
 
         public static void Seed(this ModelBuilder modelBuilder)

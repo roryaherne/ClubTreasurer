@@ -1,23 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using ClubTreasurer.Models;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using BankTransactions;
 using ClubTreasurer.Utilities;
+using System.Linq;
 
 namespace ClubTreasurer.Pages.Transactions
 {
     public class ImportModel : PageModel
     {
-        private readonly ClubTreasurer.Models.ClubTreasurerContext _context;
+        private readonly ClubTreasurerContext _context;
 
-        public ImportModel(ClubTreasurer.Models.ClubTreasurerContext context)
+        public ImportModel(ClubTreasurerContext context)
         {
             _context = context;
         }
@@ -47,11 +44,17 @@ namespace ClubTreasurer.Pages.Transactions
                 }
             }
 
-            var georgeTransactions = ImportExport.ImportFromJson(json);
+            var georgeTransactions = ImportExport.ImportFromJson(json).GroupBy(t => t.ReferenceNumber).Select(grp => grp.First()).ToList();
 
-            await BankingUtils.SaveGeorgeTransactionsToDB(_context, georgeTransactions);
+            var result = await BankingUtils.SaveGeorgeTransactionsToDB(_context, georgeTransactions);
 
-            return RedirectToPage("./Index");
+            if(result)
+                return RedirectToPage("./Index");
+            else
+            {
+                ViewData["ErrorMessage"] = "Tried to import duplicate data. Please use the Last export function in George banking";
+                return Page();
+            }
         }
     }
 }

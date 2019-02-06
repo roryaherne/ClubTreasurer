@@ -9,9 +9,8 @@ using Microsoft.Extensions.DependencyInjection;
 using ClubTreasurer.Models;
 using ClubTreasurer.Utilities;
 using ClubTreasurer.Interfaces;
-using ClubTreasurer.Data;
-using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Localization;
 
 namespace ClubTreasurer
 {
@@ -66,6 +65,11 @@ namespace ClubTreasurer
                 app.UseHsts();
             }
 
+            app.UseRequestLocalization(new RequestLocalizationOptions
+            {
+                DefaultRequestCulture = new RequestCulture("en-IE")
+            });
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
@@ -85,7 +89,7 @@ namespace ClubTreasurer
 
             app.UseMvc();
 
-            IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
+            //IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
         }
 
         private async Task DeveloperLogin(HttpContext httpContext)

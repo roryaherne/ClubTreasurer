@@ -1,4 +1,4 @@
-﻿using ClubTreasurer.Interfaces;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace ClubTreasurer.Models
 {
@@ -6,6 +6,7 @@ namespace ClubTreasurer.Models
     {
         public byte[] Image { get; set; }
 
+        [Display(Name = "Title")]
         public int PositionId { get; set; }
 
         public PlayerPosition Position { get; set; }
