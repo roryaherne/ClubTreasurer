@@ -35,7 +35,6 @@ namespace ClubTreasurer.Models
             modelBuilder.Entity<BankTransaction>()
                 .HasAlternateKey(t => t.ReferenceNumber);
         }
-
         public static void Seed(this ModelBuilder modelBuilder)
         {
             var now = DateTime.Now;

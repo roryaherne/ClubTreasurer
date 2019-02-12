@@ -12,9 +12,9 @@
     <hr />
     <div id="IdCard">
         <div class="duration">
-            <label>@ViewBag.Duration</label>
+            <label>@Model.IdCard.FeesPaidUntil</label>
         </div>
-        <img src="@ViewBag.ImageUrl" alt="Player Image" class="player-image"/>
+        <img src="@Model.IdCard.ImageUrl" alt="Player Image" class="player-image"/>
         <div class="name">
             <label>@Model.IdCard.Player.FullName</label>
         </div>

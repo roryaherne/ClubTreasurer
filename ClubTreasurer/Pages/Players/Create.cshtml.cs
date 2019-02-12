@@ -29,20 +29,11 @@ namespace ClubTreasurer.Pages.Players
         [BindProperty]
         public Player Player { get; set; }
 
-        [BindProperty]
-        public int NewBankAccount { get; set; }
-
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
-            }
-
-            if(NewBankAccount > 0)
-            {
-                var account = await _context.BankAccounts.FirstOrDefaultAsync(a => a.ID == NewBankAccount);
-                Player.BankAccounts.Add(account);
             }
                 
             _context.Players.Add(Player);

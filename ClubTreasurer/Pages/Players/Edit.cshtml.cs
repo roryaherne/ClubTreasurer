@@ -43,7 +43,9 @@ namespace ClubTreasurer.Pages.Players
             }
 
             ViewData["PositionId"] = new SelectList(_context.Set<PlayerPosition>(), "ID", "Name");
-            if(Player.Image != null)
+            //ViewData["BankAccount"] = new SelectList(_context.Set<BankAccount>().Where(a => a.PersonId == null), "ID", "Name");
+
+            if (Player.Image != null)
                 ViewData["ImageUrl"] = "data:image;base64," + Convert.ToBase64String(Player.Image);
             return Page();
         }

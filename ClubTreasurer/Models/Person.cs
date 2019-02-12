@@ -41,7 +41,13 @@ namespace ClubTreasurer.Models
         [DataType(DataType.Date)]
         public DateTime DOB { get; set; }
 
-        public ICollection<BankAccount> BankAccounts { get; set; }
+
+        [Display(Name = "Bank Account")]
+        public BankAccount BankAccount { get; set; }
+
+        [ForeignKey("BankAccount")]
+        [Display(Name = "Bank Account")]
+        public int? BankAccountId { get; set; }
 
         #region Audit Props
         public DateTime Created { get; set; }

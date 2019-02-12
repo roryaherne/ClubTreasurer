@@ -43,6 +43,7 @@ namespace ClubTreasurer.Utilities
 
                 using (SmtpClient smtp = new SmtpClient(_emailSettings.PrimaryDomain, _emailSettings.PrimaryPort))
                 {
+                    smtp.UseDefaultCredentials = false;
                     smtp.Credentials = new NetworkCredential(_emailSettings.UsernameEmail, _emailSettings.UsernamePassword);
                     smtp.EnableSsl = true;
                     await smtp.SendMailAsync(mail);

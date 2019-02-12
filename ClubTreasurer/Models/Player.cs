@@ -6,7 +6,7 @@ namespace ClubTreasurer.Models
     {
         public byte[] Image { get; set; }
 
-        [Display(Name = "Title")]
+        [Display(Name = "Position")]
         public int PositionId { get; set; }
 
         public PlayerPosition Position { get; set; }

@@ -9,7 +9,7 @@
 
 <div>
     <h4>@Model.Player.FullName</h4>
-    <img src="@ViewBag.ImageUrl" alt="Player Image" class="player-image" width="150"/>
+    <img src="@ViewBag.ImageUrl" alt="Player Image" class="player-image" width="150" />
     <dl class="dl-horizontal" style="display:inline-block">
         <dt>
             @Html.DisplayNameFor(model => model.Player.Position)
@@ -41,61 +41,66 @@
         <dd>
             @Html.DisplayFor(model => model.Player.DOB)
         </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Player.BankAccounts)
-        </dt>
-        <dd>
-            @foreach (var item in Model.Player.BankAccounts)
-            {
-                @Html.DisplayFor(modelItem => item.IBAN)
-            }
-        </dd>
+
     </dl>
     <hr />
 </div>
 <div>
     <a asp-page="./Edit" asp-route-id="@Model.Player.ID">Edit</a> |
-    <a asp-page="./Index">Back to List</a>
+    <a asp-page="./Index">Back to List</a> |
+    <a asp-page="./IdCard" asp-route-id="@Model.Player.ID">Id Card</a>
 </div>
 
 <div>
-    <h4>Transactions</h4>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.BankTransactions[0].BookingDate)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BankTransactions[0].Amount)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BankTransactions[0].Reference)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.BankTransactions[0].TransactionCategory)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.BankTransactions)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.BookingDate)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Amount)
-                    </td>
-                    <td style="white-space: nowrap; overflow: hidden;text-overflow: ellipsis;max-width:400px;">
-                        @Html.DisplayFor(modelItem => item.Reference)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TransactionCategory.Name)
-                    </td>
-                </tr>
-            }
-        </tbody>
-    </table>
+    <form asp-page="./IdCard" method="get">
+        <select asp-for="MonthFrom" asp-items="@Model.MonthFromList"></select>
+        <select asp-for="MonthTo" asp-items="@Model.MonthToList"></select>
+        <input asp-for="Player.ID" name="id" hidden value="@Model.Player.ID" />
+        <input type="submit" value="Get Id Card" class="btn btn-default"/>
+    </form>
 </div>
+
+@if (Model.BankTransactions != null)
+{
+    <div>
+        <h4>Transactions</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BankTransactions[0].BookingDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BankTransactions[0].Amount)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BankTransactions[0].Reference)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.BankTransactions[0].TransactionCategory)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.BankTransactions)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.BookingDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Amount)
+                        </td>
+                        <td style="white-space: nowrap; overflow: hidden;text-overflow: ellipsis;max-width:400px;">
+                            @Html.DisplayFor(modelItem => item.Reference)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TransactionCategory.Name)
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}

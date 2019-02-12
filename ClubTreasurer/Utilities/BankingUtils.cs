@@ -1,7 +1,6 @@
 ﻿using BankTransactions.SerializationModels;
 using ClubTreasurer.Models;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -38,7 +37,7 @@ namespace ClubTreasurer.Utilities
                 //tried to add duplicate data
                 return false;
             }
-            
+
         }
 
         private static async Task<BankAccount> GetOrCreateNewAccount(ClubTreasurerContext context, GeorgeTransaction transaction)
@@ -62,10 +61,11 @@ namespace ClubTreasurer.Utilities
                 if (person != null)
                 {
                     context.Attach(person).State = EntityState.Modified;
-                    if (person.BankAccounts == null)
-                        person.BankAccounts = new List<BankAccount>();
-                    person.BankAccounts.Add(account);
-                    await context.SaveChangesAsync();
+                    if (person.BankAccount != null)
+                    {
+                        person.BankAccount = account;
+                        await context.SaveChangesAsync();
+                    }
                 }
                 return account;
             }

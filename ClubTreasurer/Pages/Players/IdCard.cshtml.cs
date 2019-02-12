@@ -7,6 +7,8 @@ using System;
 using ClubTreasurer.Interfaces;
 using Microsoft.Extensions.Configuration;
 using ClubTreasurer.ViewModels;
+using System.Linq;
+using ClubTreasurer.Utilities;
 
 namespace ClubTreasurer.Pages.Players
 {
@@ -24,38 +26,34 @@ namespace ClubTreasurer.Pages.Players
         }
         public IdCardViewModel IdCard { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(int id, string monthFrom, string monthTo)
         {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
             var player = await _context.Players
-                .Include(p => p.Position).FirstOrDefaultAsync(m => m.ID == id);
+                .Include(p => p.Position)
+                .FirstOrDefaultAsync(m => m.ID == id);
 
             if (player == null)
             {
                 return NotFound();
             }
 
-            //TODO: Don't allow card for player not paid up on fees AND gym fees
-            IdCard.FeesPaidUntil = "Jan - Dec" + DateTime.Now.Year;
-
-            IdCard.Player = player;
+            IdCard = new IdCardViewModel
+            {
+                FeesPaidUntil = $"{monthFrom} - {monthTo} {DateTime.Now.Year}",
+                Player = player
+            };
             if (player.Image != null)
                 IdCard.ImageUrl = "data:image;base64," + Convert.ToBase64String(player.Image);
-
 
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int? id)
         {
             try
             {
                 var request = PageContext.HttpContext.Request;
-                var baseUrl = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+                var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
                 var url = $"{baseUrl}{request.Path.Value}{request.QueryString.Value}";
 
                 var subject = "Gym Card";
@@ -63,8 +61,10 @@ namespace ClubTreasurer.Pages.Players
 
                 await _emailSender.SendEmailAsync("rory.aherne@sos-kd.org", subject, message, null);
 
+                var player = await _context.Players.FirstOrDefaultAsync(m => m.ID == id);
+
                 await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, "rory.aherne@sos-kd.org");
-                await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, Player.Email);
+                //await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, player.Email);
             }
             catch (Exception)
             {
