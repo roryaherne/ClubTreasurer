@@ -17,6 +17,7 @@ namespace ClubTreasurer.Utilities
             {
                 transactions.Add(new BankTransaction()
                 {
+                    ID = transaction.ReferenceNumber,
                     BookingDate = transaction.BookingDate,
                     Amount = (decimal)(transaction.Amount.Value * Math.Pow(10.00, -transaction.Amount.Precision)),
                     Reference = transaction.Reference,
@@ -28,13 +29,15 @@ namespace ClubTreasurer.Utilities
 
             try
             {
+                //TODO: This is not AddOrUpdate. Create own extension method.
                 context.BankTransactions.UpdateRange(transactions);
                 await context.SaveChangesAsync();
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //tried to add duplicate data
+                var test = ex;
                 return false;
             }
 

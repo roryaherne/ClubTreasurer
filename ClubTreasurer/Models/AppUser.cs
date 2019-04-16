@@ -1,7 +1,4 @@
-﻿using ClubTreasurer.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using Microsoft.AspNetCore.Identity;
 
 namespace ClubTreasurer.Models
 {
@@ -16,11 +13,5 @@ namespace ClubTreasurer.Models
         public string Province { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
-
-        //[InverseProperty("CreatedBy")]
-        //public List<IAuditable> CreatedEntities { get; set; }
-
-        //[InverseProperty("LastModifiedBy")]
-        //public List<IAuditable> ModifiedEntities { get; set; }
     }
 }

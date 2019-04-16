@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +8,9 @@ namespace ClubTreasurer.Pages.Transactions
 {
     public class DeleteModel : PageModel
     {
-        private readonly ClubTreasurer.Models.ClubTreasurerContext _context;
+        private readonly ClubTreasurerContext _context;
 
-        public DeleteModel(ClubTreasurer.Models.ClubTreasurerContext context)
+        public DeleteModel(ClubTreasurerContext context)
         {
             _context = context;
         }
@@ -21,9 +18,9 @@ namespace ClubTreasurer.Pages.Transactions
         [BindProperty]
         public BankTransaction BankTransaction { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string referenceNumber)
         {
-            if (id == null)
+            if (referenceNumber == null)
             {
                 return NotFound();
             }
@@ -31,7 +28,7 @@ namespace ClubTreasurer.Pages.Transactions
             BankTransaction = await _context.BankTransactions
                 .Include(b => b.Account)
                 .Include(b => b.LastModifiedBy)
-                .Include(b => b.TransactionCategory).FirstOrDefaultAsync(m => m.ID == id);
+                .Include(b => b.TransactionCategory).FirstOrDefaultAsync(m => m.ReferenceNumber == referenceNumber);
 
             if (BankTransaction == null)
             {

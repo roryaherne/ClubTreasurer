@@ -15,6 +15,7 @@ namespace ClubTreasurer.Models
 
         public string Name { get; set; }
 
+        [ForeignKey("Person")]
         public int? PersonId { get; set; }
         public Person Person { get; set; }
 

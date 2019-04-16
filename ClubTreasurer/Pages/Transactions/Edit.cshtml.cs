@@ -21,7 +21,7 @@ namespace ClubTreasurer.Pages.Transactions
         [BindProperty]
         public int TransactionCategoryId { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {
@@ -43,7 +43,7 @@ namespace ClubTreasurer.Pages.Transactions
         }
 
         
-        public async Task<IActionResult> OnPostAsync(int? id)
+        public async Task<IActionResult> OnPostAsync(string id)
         {
             if (!ModelState.IsValid)
             {
@@ -63,7 +63,7 @@ namespace ClubTreasurer.Pages.Transactions
             return RedirectToPage("./Index");
         }
 
-        private bool BankTransactionExists(int id)
+        private bool BankTransactionExists(string id)
         {
             return _context.BankTransactions.Any(e => e.ID == id);
         }

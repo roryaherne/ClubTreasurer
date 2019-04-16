@@ -35,6 +35,7 @@ namespace ClubTreasurer.Models
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.SetUniqueColumns();
+            modelBuilder.SetKeys();
             modelBuilder.Seed();
         }
 

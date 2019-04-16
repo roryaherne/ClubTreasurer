@@ -11,6 +11,7 @@ using ClubTreasurer.Utilities;
 using ClubTreasurer.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Localization;
+using ClubTreasurer.Data;
 
 namespace ClubTreasurer
 {
@@ -76,6 +77,8 @@ namespace ClubTreasurer
 
             app.UseAuthentication();
 
+            IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
+
             //TODO: Delete after deployment
             if (env.IsDevelopment())
             {
@@ -88,8 +91,6 @@ namespace ClubTreasurer
             }
 
             app.UseMvc();
-
-            //IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
         }
 
         private async Task DeveloperLogin(HttpContext httpContext)

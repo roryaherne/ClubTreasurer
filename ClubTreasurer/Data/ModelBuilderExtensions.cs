@@ -26,6 +26,13 @@ namespace ClubTreasurer.Models
             
         }
 
+        public static void SetKeys(this ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<BankTransaction>()
+               .Property(t => t.ID)
+               .ValueGeneratedNever();
+        }
+
         public static void SetUniqueColumns(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<BankAccount>()
@@ -33,7 +40,8 @@ namespace ClubTreasurer.Models
                 .IsUnique();
 
             modelBuilder.Entity<BankTransaction>()
-                .HasAlternateKey(t => t.ReferenceNumber);
+                .HasIndex(t => t.ReferenceNumber)
+                .IsUnique();
         }
         public static void Seed(this ModelBuilder modelBuilder)
         {
