@@ -31,18 +31,12 @@ namespace ClubTreasurer.Models
             modelBuilder.Entity<BankTransaction>()
                .Property(t => t.ID)
                .ValueGeneratedNever();
-        }
 
-        public static void SetUniqueColumns(this ModelBuilder modelBuilder)
-        {
             modelBuilder.Entity<BankAccount>()
-                .HasIndex(b => b.IBAN)
-                .IsUnique();
-
-            modelBuilder.Entity<BankTransaction>()
-                .HasIndex(t => t.ReferenceNumber)
-                .IsUnique();
+               .Property(t => t.ID)
+               .ValueGeneratedNever();
         }
+
         public static void Seed(this ModelBuilder modelBuilder)
         {
             var now = DateTime.Now;

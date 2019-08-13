@@ -8,10 +8,7 @@ namespace ClubTreasurer.Models
 {
     public class BankAccount : IAuditable
     {
-        public int ID { get; set; }
-
-        [Required]
-        public string IBAN { get; set; }
+        public string ID { get; set; }
 
         public string Name { get; set; }
 

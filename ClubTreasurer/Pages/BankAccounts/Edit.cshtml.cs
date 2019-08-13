@@ -20,9 +20,9 @@ namespace ClubTreasurer.Pages.BankAccounts
         [BindProperty]
         public BankAccount BankAccount { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return NotFound();
             }
@@ -68,7 +68,7 @@ namespace ClubTreasurer.Pages.BankAccounts
             return RedirectToPage("./Index");
         }
 
-        private bool BankAccountExists(int id)
+        private bool BankAccountExists(string id)
         {
             return _context.BankAccounts.Any(e => e.ID == id);
         }

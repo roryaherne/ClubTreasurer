@@ -40,7 +40,7 @@ namespace ClubTreasurer.Pages.Players
 
             Player = await _context.Players
                 .Include(p => p.Position)
-                .Include(p => p.BankAccount).ThenInclude(a => a.Transactions).ThenInclude(t => t.TransactionCategory)
+                .Include(p => p.BankAccounts).ThenInclude(a => a.Transactions).ThenInclude(t => t.TransactionCategory)
                 .FirstOrDefaultAsync(m => m.ID == id);
 
             if (Player == null)
@@ -50,7 +50,8 @@ namespace ClubTreasurer.Pages.Players
             if (Player.Image != null)
                 ViewData["ImageUrl"] = "data:image;base64," + Convert.ToBase64String(Player.Image);
 
-            BankTransactions = Player.BankAccount?.Transactions.OrderByDescending(t => t.BookingDate).ToList();
+            BankTransactions = Player.BankAccounts.SelectMany(a => a.Transactions).OrderByDescending(t => t.BookingDate).ToList();
+            
 
             MonthFromList = MonthToList = new List<SelectListItem>()
             {

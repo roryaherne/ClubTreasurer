@@ -20,9 +20,9 @@ namespace ClubTreasurer.Pages.BankAccounts
 
         public BankAccount BankAccount { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return NotFound();
             }

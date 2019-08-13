@@ -2,7 +2,7 @@
 @model ClubTreasurer.Pages.BankAccounts.IndexModel
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Bank Accounts";
     Layout = "~/Pages/Shared/_Layout.cshtml";
 }
 
@@ -16,19 +16,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.BankAccount[0].IBAN)
+                @Html.DisplayNameFor(model => model.BankAccount[0].ID)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BankAccount[0].Name)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BankAccount[0].Person)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BankAccount[0].Created)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.BankAccount[0].LastModified)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.BankAccount[0].LastModifiedBy)
@@ -40,22 +34,21 @@
 @foreach (var item in Model.BankAccount) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.IBAN)
+                @Html.DisplayFor(modelItem => item.ID)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Person.FullName)
+                @if (@item.Person != null)
+                {
+                    <a asp-page="/Players/Details" asp-route-id="@item.Person.ID">
+                        @Html.DisplayFor(modelItem => item.Person.FullName)
+                    </a>
+                }
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Created)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModified)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastModifiedBy.Id)
+                @Html.DisplayFor(modelItem => item.LastModifiedBy.UserName)
             </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |

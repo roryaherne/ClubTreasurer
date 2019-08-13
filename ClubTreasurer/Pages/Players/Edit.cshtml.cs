@@ -5,10 +5,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClubTreasurer.Models;
-using ClubTreasurer.ViewModels;
 using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace ClubTreasurer.Pages.Players
 {
@@ -22,6 +22,7 @@ namespace ClubTreasurer.Pages.Players
         }
 
         [BindProperty]
+        [Display(Name = "New Image")]
         public IFormFile NewImage { set; get; }
 
         [BindProperty]

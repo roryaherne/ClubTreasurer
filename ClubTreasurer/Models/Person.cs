@@ -42,12 +42,8 @@ namespace ClubTreasurer.Models
         public DateTime DOB { get; set; }
 
 
-        [Display(Name = "Bank Account")]
-        public BankAccount BankAccount { get; set; }
-
-        [ForeignKey("BankAccount")]
-        [Display(Name = "Bank Account")]
-        public int? BankAccountId { get; set; }
+        [Display(Name = "Bank Accounts")]
+        public List<BankAccount> BankAccounts { get; set; }
 
         #region Audit Props
         public DateTime Created { get; set; }

@@ -18,9 +18,9 @@ namespace ClubTreasurer.Pages.Transactions
         [BindProperty]
         public BankTransaction BankTransaction { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string referenceNumber)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
-            if (referenceNumber == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return NotFound();
             }
@@ -28,7 +28,7 @@ namespace ClubTreasurer.Pages.Transactions
             BankTransaction = await _context.BankTransactions
                 .Include(b => b.Account)
                 .Include(b => b.LastModifiedBy)
-                .Include(b => b.TransactionCategory).FirstOrDefaultAsync(m => m.ReferenceNumber == referenceNumber);
+                .Include(b => b.TransactionCategory).FirstOrDefaultAsync(m => m.ID == id);
 
             if (BankTransaction == null)
             {

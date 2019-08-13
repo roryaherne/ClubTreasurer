@@ -51,8 +51,8 @@ namespace ClubTreasurer.Migrations
                     b.ToTable("AspNetRoles");
 
                     b.HasData(
-                        new { Id = "3dc4be85-fd29-4c59-b0bc-c867b8b7756b", ConcurrencyStamp = "b73c87a4-6e4b-4ac8-ab25-a2337d164499", Description = "CRUD operations on finances", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "FinaceEditor" },
-                        new { Id = "f6080789-f215-4a72-8a63-00f3a2b7c4bf", ConcurrencyStamp = "a63a36c0-cd55-418e-bd70-0f42f20b75b8", Description = "Read operations on finances", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "FinanceReader" }
+                        new { Id = "06a9674e-00c0-4f65-b925-4159620db1e2", ConcurrencyStamp = "28b42658-7691-4df2-8731-7c666ef6919a", Description = "CRUD operations on finances", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "FinaceEditor" },
+                        new { Id = "d95f1da6-878b-438d-8da1-12d7b176f8e2", ConcurrencyStamp = "f8218965-bce7-4be4-85f4-4a7e2c2d14ee", Description = "Read operations on finances", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "FinanceReader" }
                     );
                 });
 
@@ -121,20 +121,15 @@ namespace ClubTreasurer.Migrations
                     b.ToTable("AspNetUsers");
 
                     b.HasData(
-                        new { Id = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", AccessFailedCount = 0, ConcurrencyStamp = "e9951b11-ca22-4281-ac01-e402c1c5b517", Email = "fake@fake.com", EmailConfirmed = true, LockoutEnabled = false, PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "seeder" }
+                        new { Id = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", AccessFailedCount = 0, ConcurrencyStamp = "292b41e2-152a-41b2-b506-5237a45e7c6f", Email = "fake@fake.com", EmailConfirmed = true, LockoutEnabled = false, PhoneNumberConfirmed = false, TwoFactorEnabled = false, UserName = "seeder" }
                     );
                 });
 
             modelBuilder.Entity("ClubTreasurer.Models.BankAccount", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ID");
 
                     b.Property<DateTime>("Created");
-
-                    b.Property<string>("IBAN")
-                        .IsRequired();
 
                     b.Property<DateTime>("LastModified");
 
@@ -145,9 +140,6 @@ namespace ClubTreasurer.Migrations
                     b.Property<int?>("PersonId");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("IBAN")
-                        .IsUnique();
 
                     b.HasIndex("LastModifiedById");
 
@@ -160,7 +152,7 @@ namespace ClubTreasurer.Migrations
                 {
                     b.Property<string>("ID");
 
-                    b.Property<int>("AccountId");
+                    b.Property<string>("AccountId");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("decimal(18,2)");
@@ -175,8 +167,6 @@ namespace ClubTreasurer.Migrations
 
                     b.Property<string>("Reference");
 
-                    b.Property<string>("ReferenceNumber");
-
                     b.Property<int>("TransactionCategoryId");
 
                     b.HasKey("ID");
@@ -184,10 +174,6 @@ namespace ClubTreasurer.Migrations
                     b.HasIndex("AccountId");
 
                     b.HasIndex("LastModifiedById");
-
-                    b.HasIndex("ReferenceNumber")
-                        .IsUnique()
-                        .HasFilter("[ReferenceNumber] IS NOT NULL");
 
                     b.HasIndex("TransactionCategoryId");
 
@@ -220,13 +206,13 @@ namespace ClubTreasurer.Migrations
                     b.ToTable("BankTransactionCategorys");
 
                     b.HasData(
-                        new { ID = 1, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), KeyWords = "coaching", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Coaching Fees" },
-                        new { ID = 2, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), KeyWords = "gym,fitness", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Gym Fees" },
-                        new { ID = 3, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), KeyWords = "mitglied,membership", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Membership Fees" },
-                        new { ID = 4, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), KeyWords = "old boys,oldboys", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Old Boys Supporters" },
-                        new { ID = 5, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), KeyWords = "sponsor", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Sponsorship" },
-                        new { ID = 6, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), KeyWords = "travel,fuel,train,zug", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Travel Expenses" },
-                        new { ID = 7, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Coaches Wages" }
+                        new { ID = 1, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), KeyWords = "coaching", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Coaching Fees" },
+                        new { ID = 2, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), KeyWords = "gym,fitness", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Gym Fees" },
+                        new { ID = 3, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), KeyWords = "mitglied,membership", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Membership Fees" },
+                        new { ID = 4, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), KeyWords = "old boys,oldboys", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Old Boys Supporters" },
+                        new { ID = 5, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), KeyWords = "sponsor", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Sponsorship" },
+                        new { ID = 6, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), KeyWords = "travel,fuel,train,zug", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Travel Expenses" },
+                        new { ID = 7, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Coaches Wages" }
                     );
                 });
 
@@ -235,8 +221,6 @@ namespace ClubTreasurer.Migrations
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("BankAccountId");
 
                     b.Property<DateTime>("Created");
 
@@ -258,8 +242,6 @@ namespace ClubTreasurer.Migrations
                     b.Property<string>("Title");
 
                     b.HasKey("ID");
-
-                    b.HasIndex("BankAccountId");
 
                     b.HasIndex("LastModifiedById");
 
@@ -290,16 +272,16 @@ namespace ClubTreasurer.Migrations
                     b.ToTable("PlayerPositions");
 
                     b.HasData(
-                        new { ID = 1, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Full Back" },
-                        new { ID = 2, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Winger" },
-                        new { ID = 3, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Center" },
-                        new { ID = 4, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Out Half" },
-                        new { ID = 5, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Scrum Half" },
-                        new { ID = 6, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Number 8" },
-                        new { ID = 7, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Flanker" },
-                        new { ID = 8, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Second Row" },
-                        new { ID = 9, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Hooker" },
-                        new { ID = 10, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Prop" }
+                        new { ID = 1, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Full Back" },
+                        new { ID = 2, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Winger" },
+                        new { ID = 3, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Center" },
+                        new { ID = 4, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Out Half" },
+                        new { ID = 5, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Scrum Half" },
+                        new { ID = 6, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Number 8" },
+                        new { ID = 7, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Flanker" },
+                        new { ID = 8, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Second Row" },
+                        new { ID = 9, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Hooker" },
+                        new { ID = 10, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", Name = "Prop" }
                     );
                 });
 
@@ -408,28 +390,28 @@ namespace ClubTreasurer.Migrations
                     b.HasDiscriminator().HasValue("Player");
 
                     b.HasData(
-                        new { ID = 1, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1989, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Max", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Büttner", PositionId = 9 },
-                        new { ID = 2, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1983, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Jeremie", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "DeJean", PositionId = 5 },
-                        new { ID = 3, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1998, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Julia", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Hensler", PositionId = 10 },
-                        new { ID = 4, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1991, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Kristin", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Hiltpot", PositionId = 2 },
-                        new { ID = 5, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1990, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Philip", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Westerlund", PositionId = 10 },
-                        new { ID = 6, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1998, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Hannah", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Werkgarner", PositionId = 2 },
-                        new { ID = 7, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1994, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Anna", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Wallensteiner", PositionId = 2 },
-                        new { ID = 8, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1989, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Nils", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Unthan", PositionId = 2 },
-                        new { ID = 9, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1994, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Thomas", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Tripp", PositionId = 8 },
-                        new { ID = 10, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1998, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Davide", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Sorvillo", PositionId = 2 },
-                        new { ID = 11, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1995, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Florian", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Rudiferia", PositionId = 4 },
-                        new { ID = 12, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1991, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Barbara", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Rieger", PositionId = 10 },
-                        new { ID = 13, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1993, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Christian", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Pöhl", PositionId = 2 },
-                        new { ID = 14, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1990, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Nesar", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Nazari", PositionId = 2 },
-                        new { ID = 15, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1990, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Sebastian", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Müller", PositionId = 8 },
-                        new { ID = 16, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1995, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Benjamin", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Rabl", PositionId = 3 },
-                        new { ID = 17, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1996, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Tom", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Millen", PositionId = 5 },
-                        new { ID = 18, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1985, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Mathias", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Märk", PositionId = 4 },
-                        new { ID = 19, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1995, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Isabella", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Luke", PositionId = 5 },
-                        new { ID = 20, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1989, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Gerald", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Lerchbaumer", PositionId = 2 },
-                        new { ID = 21, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1991, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Lukas", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Kolb", PositionId = 7 },
-                        new { ID = 22, Created = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), DOB = new DateTime(1993, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Khvistani", LastModified = new DateTime(2019, 4, 16, 17, 59, 14, 13, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Giorgi", PositionId = 10 }
+                        new { ID = 1, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1989, 12, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Max", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Büttner", PositionId = 9 },
+                        new { ID = 2, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1983, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Jeremie", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "DeJean", PositionId = 5 },
+                        new { ID = 3, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1998, 7, 9, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Julia", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Hensler", PositionId = 10 },
+                        new { ID = 4, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1991, 2, 26, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Kristin", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Hiltpot", PositionId = 2 },
+                        new { ID = 5, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1990, 5, 16, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Philip", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Westerlund", PositionId = 10 },
+                        new { ID = 6, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1998, 2, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Hannah", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Werkgarner", PositionId = 2 },
+                        new { ID = 7, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1994, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Anna", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Wallensteiner", PositionId = 2 },
+                        new { ID = 8, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1989, 4, 29, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Nils", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Unthan", PositionId = 2 },
+                        new { ID = 9, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1994, 3, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Thomas", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Tripp", PositionId = 8 },
+                        new { ID = 10, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1998, 7, 24, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Davide", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Sorvillo", PositionId = 2 },
+                        new { ID = 11, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1995, 11, 11, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Florian", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Rudiferia", PositionId = 4 },
+                        new { ID = 12, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1991, 7, 27, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Barbara", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Rieger", PositionId = 10 },
+                        new { ID = 13, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1993, 12, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Christian", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Pöhl", PositionId = 2 },
+                        new { ID = 14, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1990, 2, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Nesar", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Nazari", PositionId = 2 },
+                        new { ID = 15, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1990, 8, 7, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Sebastian", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Müller", PositionId = 8 },
+                        new { ID = 16, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1995, 4, 25, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Benjamin", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Rabl", PositionId = 3 },
+                        new { ID = 17, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1996, 8, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Tom", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Millen", PositionId = 5 },
+                        new { ID = 18, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1985, 6, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Mathias", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Märk", PositionId = 4 },
+                        new { ID = 19, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1995, 11, 4, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Isabella", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Luke", PositionId = 5 },
+                        new { ID = 20, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1989, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Gerald", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Lerchbaumer", PositionId = 2 },
+                        new { ID = 21, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1991, 6, 6, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Lukas", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Kolb", PositionId = 7 },
+                        new { ID = 22, Created = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), DOB = new DateTime(1993, 3, 8, 0, 0, 0, 0, DateTimeKind.Unspecified), FirstName = "Khvistani", LastModified = new DateTime(2019, 4, 18, 16, 26, 28, 977, DateTimeKind.Local), LastModifiedById = "e2a8bd78-87eb-4e39-aafd-fd9d67e3c48e", LastName = "Giorgi", PositionId = 10 }
                     );
                 });
 
@@ -447,7 +429,7 @@ namespace ClubTreasurer.Migrations
                         .HasForeignKey("LastModifiedById");
 
                     b.HasOne("ClubTreasurer.Models.Person", "Person")
-                        .WithMany()
+                        .WithMany("BankAccounts")
                         .HasForeignKey("PersonId");
                 });
 
@@ -455,8 +437,7 @@ namespace ClubTreasurer.Migrations
                 {
                     b.HasOne("ClubTreasurer.Models.BankAccount", "Account")
                         .WithMany("Transactions")
-                        .HasForeignKey("AccountId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("AccountId");
 
                     b.HasOne("ClubTreasurer.Models.AppUser", "LastModifiedBy")
                         .WithMany()
@@ -477,10 +458,6 @@ namespace ClubTreasurer.Migrations
 
             modelBuilder.Entity("ClubTreasurer.Models.Person", b =>
                 {
-                    b.HasOne("ClubTreasurer.Models.BankAccount", "BankAccount")
-                        .WithMany()
-                        .HasForeignKey("BankAccountId");
-
                     b.HasOne("ClubTreasurer.Models.AppUser", "LastModifiedBy")
                         .WithMany()
                         .HasForeignKey("LastModifiedById");

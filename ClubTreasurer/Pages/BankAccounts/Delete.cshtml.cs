@@ -21,7 +21,7 @@ namespace ClubTreasurer.Pages.BankAccounts
         [BindProperty]
         public BankAccount BankAccount { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(int? id)
+        public async Task<IActionResult> OnGetAsync(string id)
         {
             if (id == null)
             {

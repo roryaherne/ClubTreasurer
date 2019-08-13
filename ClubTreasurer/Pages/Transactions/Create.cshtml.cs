@@ -20,7 +20,7 @@ namespace ClubTreasurer.Pages.Transactions
 
         public IActionResult OnGet()
         {
-        ViewData["AccountId"] = new SelectList(_context.BankAccounts, "ID", "IBAN");
+        ViewData["AccountId"] = new SelectList(_context.BankAccounts, "ID", "ID");
         ViewData["LastModifiedById"] = new SelectList(_context.AppUsers, "Id", "Id");
         ViewData["TransactionCategoryId"] = new SelectList(_context.BankTransactionCategorys, "ID", "Name");
             return Page();

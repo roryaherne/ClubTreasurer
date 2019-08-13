@@ -77,7 +77,7 @@ namespace ClubTreasurer
 
             app.UseAuthentication();
 
-            IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
+            //IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
 
             //TODO: Delete after deployment
             if (env.IsDevelopment())

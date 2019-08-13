@@ -6,8 +6,6 @@ using System.Threading;
 using System;
 using ClubTreasurer.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.AspNetCore.Identity;
-using ClubTreasurer.Models;
 
 namespace ClubTreasurer.Models
 {
@@ -34,7 +32,6 @@ namespace ClubTreasurer.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            modelBuilder.SetUniqueColumns();
             modelBuilder.SetKeys();
             modelBuilder.Seed();
         }

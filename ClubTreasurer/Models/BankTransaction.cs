@@ -16,8 +16,6 @@ namespace ClubTreasurer.Models
 
         public string Reference { get; set; }
 
-        public string ReferenceNumber { get; set; }
-
         [Required]
         [Display(Name = "Date")]
         [DataType(DataType.Date)]
@@ -29,7 +27,7 @@ namespace ClubTreasurer.Models
         public int TransactionCategoryId { get; set; }
 
         [ForeignKey("Account")]
-        public int AccountId { get; set; }
+        public string AccountId { get; set; }
 
         [Display(Name = "Category")]
         public BankTransactionCategory TransactionCategory { get; set; }

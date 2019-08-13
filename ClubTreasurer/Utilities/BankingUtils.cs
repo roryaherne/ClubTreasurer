@@ -1,4 +1,5 @@
 ﻿using BankTransactions.SerializationModels;
+using ClubTreasurer.Data;
 using ClubTreasurer.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -21,7 +22,6 @@ namespace ClubTreasurer.Utilities
                     BookingDate = transaction.BookingDate,
                     Amount = (decimal)(transaction.Amount.Value * Math.Pow(10.00, -transaction.Amount.Precision)),
                     Reference = transaction.Reference,
-                    ReferenceNumber = transaction.ReferenceNumber,
                     Account = await GetOrCreateNewAccount(context, transaction),
                     TransactionCategory = await GetOrCreateNewCategory(context, transaction)
                 });
@@ -29,8 +29,10 @@ namespace ClubTreasurer.Utilities
 
             try
             {
-                //TODO: This is not AddOrUpdate. Create own extension method.
-                context.BankTransactions.UpdateRange(transactions);
+                foreach (var transaction in transactions)
+                {
+                    context.BankTransactions.AddIfNotExists(transaction, t => t.ID);
+                }
                 await context.SaveChangesAsync();
                 return true;
             }
@@ -45,14 +47,14 @@ namespace ClubTreasurer.Utilities
 
         private static async Task<BankAccount> GetOrCreateNewAccount(ClubTreasurerContext context, GeorgeTransaction transaction)
         {
-            var account = await context.BankAccounts.FirstOrDefaultAsync(a => a.IBAN == transaction.PartnerAccount.Iban);
+            var account = await context.BankAccounts.FirstOrDefaultAsync(a => a.ID == transaction.PartnerAccount.Iban);
             if (account != null)
                 return account;
             else
             {
                 account = new BankAccount
                 {
-                    IBAN = transaction.PartnerAccount.Iban,
+                    ID = transaction.PartnerAccount.Iban,
                     Name = transaction.PartnerName
                 };
 
@@ -64,11 +66,19 @@ namespace ClubTreasurer.Utilities
                 if (person != null)
                 {
                     context.Attach(person).State = EntityState.Modified;
-                    if (person.BankAccount != null)
+                    if (person.BankAccounts == null)
                     {
-                        person.BankAccount = account;
+                        person.BankAccounts = new List<BankAccount>
+                        {
+                            account
+                        };
                         await context.SaveChangesAsync();
                     }
+                    else
+                    {
+                        person.BankAccounts.Add(account);
+                    }
+
                 }
                 return account;
             }
