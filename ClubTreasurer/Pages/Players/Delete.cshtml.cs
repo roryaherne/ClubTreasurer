@@ -35,6 +35,10 @@ namespace ClubTreasurer.Pages.Players
             {
                 return NotFound();
             }
+
+            if (Player.Image != null)
+                ViewData["ImageUrl"] = "data:image;base64," + Convert.ToBase64String(Player.Image);
+
             return Page();
         }
 

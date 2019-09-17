@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using System.IO;
 using System;
 using System.ComponentModel.DataAnnotations;
+using ClubTreasurer.Utilities;
 
 namespace ClubTreasurer.Pages.Players
 {
@@ -23,7 +24,7 @@ namespace ClubTreasurer.Pages.Players
 
         [BindProperty]
         [Display(Name = "New Image")]
-        public IFormFile NewImage { set; get; }
+        public IFormFile NewImage { get; set; }
 
         [BindProperty]
         public Player Player { get; set; }
@@ -68,7 +69,8 @@ namespace ClubTreasurer.Pages.Players
                     {
                         NewImage.CopyTo(ms);
                         var fileBytes = ms.ToArray();
-                        Player.Image = fileBytes;
+                        var resizedImage = ImageUtils.ResizeImage(fileBytes, 140, 190);
+                        Player.Image = resizedImage;
                     }
                 }
                     

@@ -7,6 +7,10 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using ClubTreasurer.Models;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
+using System.IO;
+using ClubTreasurer.Utilities;
 
 namespace ClubTreasurer.Pages.Players
 {
@@ -29,13 +33,27 @@ namespace ClubTreasurer.Pages.Players
         [BindProperty]
         public Player Player { get; set; }
 
+        [BindProperty]
+        public IFormFile Image { get; set; }
+
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
                 return Page();
             }
-                
+
+            if (Image != null && Image.Length > 0)
+            {
+                using (var ms = new MemoryStream())
+                {
+                    Image.CopyTo(ms);
+                    var fileBytes = ms.ToArray();
+                    var resizedImage = ImageUtils.ResizeImage(fileBytes, 140, 190);
+                    Player.Image = resizedImage;
+                }
+            }
+
             _context.Players.Add(Player);
             await _context.SaveChangesAsync();
 

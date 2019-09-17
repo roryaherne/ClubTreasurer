@@ -8,16 +8,16 @@
 <h2>Delete</h2>
 
 <h3>Are you sure you want to delete this?</h3>
+
+<h4>@Model.Player.FullName</h4>
+@if (@Model.Player.Image != null)
+{
+    <img src="@ViewBag.ImageUrl" alt="Player Image" class="player-image" width="150" />
+}
+<hr />
 <div>
-    <h4>Player</h4>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Player.Image)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Player.Image)
-        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Player.Position)
         </dt>
@@ -55,7 +55,7 @@
             @Html.DisplayFor(model => model.Player.LastModified)
         </dd>
     </dl>
-    
+
     <form method="post">
         <input type="hidden" asp-for="Player.ID" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
