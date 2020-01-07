@@ -56,14 +56,9 @@ namespace ClubTreasurer.Pages.Players
                 var baseUrl = $"{Request.Scheme}://{Request.Host}{Request.PathBase}";
                 var url = $"{baseUrl}{request.Path.Value}{request.QueryString.Value}";
 
-                var subject = "Gym Card";
-                var message = "Print in colour and have it signed by Jeremie before laminating";
-
-                await _emailSender.SendEmailAsync("rory.aherne@sos-kd.org", subject, message, null);
-
                 var player = await _context.Players.FirstOrDefaultAsync(m => m.ID == id);
 
-                await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, "rory.aherne@sos-kd.org");
+                await PdfUtils.CreatePdfFrumUrl(url, player.FullNameReverse);
                 //await PdfUtils.EmailUrlAsPdfAttachement(_emailSender, url, player.Email);
             }
             catch (Exception)

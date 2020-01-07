@@ -7,8 +7,8 @@
 
 <h2>Edit</h2>
 
-<h4>@Model.Player.FullName</h4>
-@if (@Model.Player.Image != null)
+<h4>@Model.PlayerModel.FullName</h4>
+@if (@Model.PlayerModel.Image != null)
 {
     <img src="@ViewBag.ImageUrl" alt="Player Image" class="player-image" width="150" />
 }
@@ -19,39 +19,40 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
             <div class="form-group">
-                <label asp-for="Player.FirstName" class="control-label"></label>
-                <input asp-for="Player.FirstName" class="form-control" />
-                <span asp-validation-for="Player.FirstName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Player.LastName" class="control-label"></label>
-                <input asp-for="Player.LastName" class="form-control" />
-                <span asp-validation-for="Player.LastName" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Player.Email" class="control-label"></label>
-                <input asp-for="Player.Email" class="form-control" />
-                <span asp-validation-for="Player.Email" class="text-danger"></span>
+                <label asp-for="PlayerModel.FirstName" class="control-label"></label>
+                <input asp-for="PlayerModel.FirstName" class="form-control" />
+                <span asp-validation-for="PlayerModel.FirstName" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Player.PositionId" class="control-label"></label>
-                <select asp-for="Player.PositionId" class="form-control" asp-items="ViewBag.PositionId"></select>
-                <span asp-validation-for="Player.PositionId" class="text-danger"></span>
+                <label asp-for="PlayerModel.LastName" class="control-label"></label>
+                <input asp-for="PlayerModel.LastName" class="form-control" />
+                <span asp-validation-for="PlayerModel.LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PlayerModel.Email" class="control-label"></label>
+                <input asp-for="PlayerModel.Email" class="form-control" />
+                <span asp-validation-for="PlayerModel.Email" class="text-danger"></span>
             </div>
 
             <div class="form-group">
-                <label asp-for="Player.DOB" class="control-label"></label>
-                <input asp-for="Player.DOB" class="form-control" />
-                <span asp-validation-for="Player.DOB" class="text-danger"></span>
+                <label asp-for="PlayerModel.PositionId" class="control-label"></label>
+                <select asp-for="PlayerModel.PositionId" class="form-control" asp-items="ViewBag.PositionId"></select>
+                <span asp-validation-for="PlayerModel.PositionId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PlayerModel.DOB" class="control-label"></label>
+                <input asp-for="PlayerModel.DOB" class="form-control" />
+                <span asp-validation-for="PlayerModel.DOB" class="text-danger"></span>
             </div>
 
             <div class="form-group">
                 <label asp-for="NewImage" class="control-label"></label>
-                <input asp-for="NewImage" class="form-control" type="file" />
+                <input asp-for="NewImage" class="form-control" type="file" accept="image/*" />
             </div>
 
-            <input type="hidden" asp-for="Player.ID" />
+            <input type="hidden" asp-for="PlayerModel.ID" />
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

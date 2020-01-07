@@ -41,10 +41,34 @@ namespace ClubTreasurer.Utilities
             // create email message
             var subject = "Gym Card";
             var message = "Print in colour and have it signed by Jeremie before laminating";
-            var attachment = new Attachment(pdfStream, "Document.pdf");
+            var attachment = new Attachment(pdfStream, "GymCard.pdf");
+            await emailSender.SendEmailAsync(recipient, subject, message, attachment);
 
-            await emailSender.SendEmailAsync(recipient, subject, message, null);
-            //await emailSender.SendEmailAsync(recipient, subject, message, new Attachment(pdfStream, "GymCard.pdf"));
+            // close pdf document
+            doc.Close();
+        }
+
+        public static async Task CreatePdfFrumUrl(string url, string fileName) {
+
+            PdfPageSize pageSize = PdfPageSize.A4;
+            PdfPageOrientation pdfOrientation = PdfPageOrientation.Portrait;
+            int webPageWidth = 1024;
+            int webPageHeight = 1000;
+
+            // instantiate a html to pdf converter object
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = pageSize;
+            converter.Options.PdfPageOrientation = pdfOrientation;
+            converter.Options.WebPageWidth = webPageWidth;
+            converter.Options.WebPageHeight = webPageHeight;
+
+            // create a new pdf document converting an url
+            PdfDocument doc = converter.ConvertUrl(url);
+
+            // save pdf document
+            doc.Save($@"C:\Temp\{fileName}.pdf");
 
             // close pdf document
             doc.Close();

@@ -12,6 +12,9 @@ using ClubTreasurer.Interfaces;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Localization;
 using ClubTreasurer.Data;
+using jsreport.AspNetCore;
+using jsreport.Local;
+using jsreport.Binary;
 
 namespace ClubTreasurer
 {
@@ -39,6 +42,11 @@ namespace ClubTreasurer
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddJsReport(new LocalReporting()
+                    .UseBinary(JsReportBinary.GetBinary())
+                    .AsUtility()
+                    .Create());
+
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<ClubTreasurerContext>(options =>
@@ -49,11 +57,11 @@ namespace ClubTreasurer
                     .AddEntityFrameworkStores<ClubTreasurerContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
-            }
+        }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ClubTreasurerContext context, 
-            RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ClubTreasurerContext context,
+            RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             if (env.IsDevelopment())
             {
@@ -77,7 +85,7 @@ namespace ClubTreasurer
 
             app.UseAuthentication();
 
-            //IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
+            IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
 
             //TODO: Delete after deployment
             if (env.IsDevelopment())

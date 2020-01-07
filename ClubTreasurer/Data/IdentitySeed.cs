@@ -14,11 +14,8 @@ namespace ClubTreasurer.Data
         {
             context.Database.EnsureCreated();
 
-
             string adminRole = "Admin";
             string adminDescription = "This is the administrator role";
-
-            var emailSettings = configuration.GetSection("EmailSettings");
 
             var passwords = configuration.GetSection("Passwords");
             var adminPassword = passwords.GetValue<string>("AdminPassword");

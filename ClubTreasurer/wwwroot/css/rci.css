@@ -4,6 +4,7 @@
     height: 320px;
     background-size: cover;
     position: relative;
+    margin-bottom: 1rem;
 }
 
 #IdCard .duration {
@@ -18,8 +19,8 @@
     width: 140px;
     height: 190px;
     position: absolute;
-    top: 90px;
-    left: 17px;
+    top: 94px;
+    left: 11px;
 }
 
 #IdCard .name {
