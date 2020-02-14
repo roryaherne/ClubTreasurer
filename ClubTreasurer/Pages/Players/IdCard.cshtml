@@ -10,27 +10,24 @@
 <div>
     <h4>@Model.IdCard.Player.FullName</h4>
     <hr />
-    <div id="IdCard">
+    <div id="IdCard" style="background-color: @Model.IdCard.BackgroundColor">
+        <div class="heading">
+            <label>Rugby Club Innsbruck</label>
+        </div>
         <div class="duration">
             <label>@Model.IdCard.FeesPaidUntil</label>
         </div>
-        <img src="@Model.IdCard.ImageUrl" alt="Player Image" class="player-image"/>
-        <div class="name">
-            <label>@Model.IdCard.Player.FullName</label>
+        <img src="@Model.IdCard.ImageUrl" alt="Player Image" class="player-image" />
+        <div class="stats name">
+            <label><span class="prefix">Name:</span> @Model.IdCard.Player.FullName</label>
         </div>
-        <div class="birthdate">
-            <label>@Html.DisplayFor(model => Model.IdCard.Player.DOB)</label>
+        <div class="stats birthdate">
+            <label><span class="prefix">Geb:</span> @Html.DisplayFor(model => Model.IdCard.Player.DOB)</label>
         </div>
-        <div class="position">
-            <label>@Html.DisplayFor(model => Model.IdCard.Player.Position.Name)</label>
+        <div class="stats position">
+            <label><span class="prefix">Pos:</span> @Html.DisplayFor(model => Model.IdCard.Player.Position.Name)</label>
         </div>
+        <img class="logo" src="~/images/logo.png" />
     </div>
     
 </div>
-<form id="EmailAsPdf" method="post" role="form">
-    <div>
-        <button type="submit" name="culture" value="@Model.IdCard.Player.ID">
-            Email as PDF
-        </button>
-    </div>
-</form>

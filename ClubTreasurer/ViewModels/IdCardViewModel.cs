@@ -7,5 +7,6 @@ namespace ClubTreasurer.ViewModels
         public Player Player { get; set; }
         public string FeesPaidUntil { get; set; }
         public string ImageUrl { get; set; }
+        public string BackgroundColor { get; set; }
     }
 }

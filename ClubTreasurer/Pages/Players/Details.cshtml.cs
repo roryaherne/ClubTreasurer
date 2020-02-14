@@ -25,11 +25,14 @@ namespace ClubTreasurer.Pages.Players
         public List<BankTransaction> BankTransactions { get; set; }
         public List<SelectListItem> MonthFromList { get; set; }
         public List<SelectListItem> MonthToList { get; set; }
+        public List<SelectListItem> YearList { get; set; }
 
         [BindProperty]
         public string MonthTo { get; set; }
         [BindProperty]
         public string MonthFrom { get; set; }
+        [BindProperty]
+        public string Year { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -67,6 +70,15 @@ namespace ClubTreasurer.Pages.Players
                 new SelectListItem {Text = "Okt", Value = "Okt"},
                 new SelectListItem {Text = "Nov", Value = "Nov"},
                 new SelectListItem {Text = "Dez", Value = "Dez"}
+            };
+
+            var currentYear = DateTime.Now.Year.ToString();
+            var nextYear = DateTime.Now.AddYears(1).Year.ToString();
+
+            YearList = new List<SelectListItem>()
+            {
+                new SelectListItem {Text = currentYear, Value = currentYear},
+                new SelectListItem {Text = nextYear, Value = nextYear},
             };
 
             return Page();

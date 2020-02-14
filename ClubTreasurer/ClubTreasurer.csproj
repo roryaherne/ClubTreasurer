@@ -2,7 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <RuntimeFrameworkVersion>2.1.9</RuntimeFrameworkVersion>
     <UserSecretsId>aspnet-ClubTreasurer-DA96A88E-1B17-4EA0-8F2C-695E5BA537DE</UserSecretsId>
+    <RuntimeIdentifiers>win10-x64;win81-x64</RuntimeIdentifiers>
+    <Authors>Rory Aherne</Authors>
+    <Company>Rory Aherne</Company>
+    <Copyright>(c) Rory Aherne</Copyright>
+    <RepositoryUrl>https://github.com/roryaherne/ClubTreasurer</RepositoryUrl>
+    <ApplicationIcon>logo_HvS_icon.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -19,12 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="jsreport.AspNetCore" Version="2.0.0" />
     <PackageReference Include="jsreport.Binary" Version="2.6.1" />
     <PackageReference Include="jsreport.Local" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="2.1.1" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.1">
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Language" Version="2.1.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.1.14">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>

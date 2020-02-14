@@ -59,8 +59,9 @@
     <form asp-page="./IdCard" method="get">
         <select asp-for="MonthFrom" asp-items="@Model.MonthFromList"></select>
         <select asp-for="MonthTo" asp-items="@Model.MonthToList"></select>
+        <select asp-for="Year" asp-items="@Model.YearList"></select>
         <input asp-for="Player.ID" name="id" hidden value="@Model.Player.ID" />
-        <input type="submit" value="Get Id Card" class="btn btn-default"/>
+        <input type="submit" value="Get Id Card" class="btn btn-default" />
     </form>
 </div>
 

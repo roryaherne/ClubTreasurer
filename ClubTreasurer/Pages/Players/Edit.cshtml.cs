@@ -11,16 +11,19 @@ using System;
 using System.ComponentModel.DataAnnotations;
 using ClubTreasurer.Utilities;
 using ClubTreasurer.ViewModels;
+using AutoMapper;
 
 namespace ClubTreasurer.Pages.Players
 {
     public class EditModel : PageModel
     {
         private readonly ClubTreasurerContext _context;
+        private readonly IMapper _mapper;
 
-        public EditModel(ClubTreasurerContext context)
+        public EditModel(ClubTreasurerContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         [BindProperty]
@@ -47,24 +50,16 @@ namespace ClubTreasurer.Pages.Players
                 return NotFound();
             }
 
-            PlayerModel = new PlayerViewModel();
-
-            PlayerModel.FirstName = player.FirstName;
-            PlayerModel.LastName = player.LastName;
-            PlayerModel.DOB = player.DOB;
-            PlayerModel.Email = player.Email;
-            PlayerModel.ID = player.ID;
-            PlayerModel.PositionId = player.PositionId;
+            PlayerModel = _mapper.Map<PlayerViewModel>(player);
 
             ViewData["PositionId"] = new SelectList(_context.Set<PlayerPosition>(), "ID", "Name");
-            //ViewData["BankAccount"] = new SelectList(_context.Set<BankAccount>().Where(a => a.PersonId == null), "ID", "Name");
 
             if (player.Image != null)
-                ViewData["ImageUrl"] = "data:image;base64," + Convert.ToBase64String(player.Image);
+                PlayerModel.Base64Image = "data:image;base64," + Convert.ToBase64String(player.Image);
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             if (!ModelState.IsValid)
             {
@@ -72,7 +67,7 @@ namespace ClubTreasurer.Pages.Players
             }
 
             player = await _context.Players
-                .Include(p => p.Position).FirstOrDefaultAsync(m => m.ID == PlayerModel.ID);
+                .Include(p => p.Position).FirstOrDefaultAsync(m => m.ID == id);
 
             _context.Attach(player).State = EntityState.Modified;
 
@@ -99,7 +94,7 @@ namespace ClubTreasurer.Pages.Players
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!PlayerExists(PlayerModel.ID))
+                if (!PlayerExists(id))
                 {
                     return NotFound();
                 }

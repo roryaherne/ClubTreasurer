@@ -15,17 +15,17 @@ using ClubTreasurer.Data;
 using jsreport.AspNetCore;
 using jsreport.Local;
 using jsreport.Binary;
+using AutoMapper;
 
 namespace ClubTreasurer
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
-
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -37,7 +37,8 @@ namespace ClubTreasurer
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
+            services.Configure<RCIConfig>(Configuration.GetSection("RCIConfig"));
+
             services.AddTransient<IEmailSender, AuthMessageSender>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -50,13 +51,15 @@ namespace ClubTreasurer
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddDbContext<ClubTreasurerContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ClubTreasurerContext")));
+                    options.UseSqlServer(Configuration.GetConnectionString("LocalDBClubTreasurerContext")));
 
             services.AddIdentity<AppUser, AppRole>(
                     options => options.Stores.MaxLengthForKeys = 128)
                     .AddEntityFrameworkStores<ClubTreasurerContext>()
                     .AddDefaultUI()
                     .AddDefaultTokenProviders();
+
+            services.AddAutoMapper(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
