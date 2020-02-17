@@ -45,9 +45,45 @@ namespace ClubTreasurer.Utilities
 
         }
 
+        private static async Task<BankAccount> GetOwnBankAccount(ClubTreasurerContext context, string ownIban)
+        {
+            var account = await context.BankAccounts.FirstOrDefaultAsync(a => a.ID == ownIban);
+            if (account != null)
+                return account;
+            else
+            {
+                account = new BankAccount
+                {
+                    ID = ownIban,
+                    Name = "Rugby Club Innsbruck"
+                };
+
+                context.BankAccounts.Add(account);
+
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    var test = ex;
+                }
+                return account;
+            }
+        }
+
         private static async Task<BankAccount> GetOrCreateNewAccount(ClubTreasurerContext context, GeorgeTransaction transaction)
         {
-            var account = await context.BankAccounts.FirstOrDefaultAsync(a => a.ID == transaction.PartnerAccount.Iban);
+            BankAccount account;
+
+            if (transaction.PartnerAccount?.Iban == null) { 
+                //cash payment
+                account = await GetOwnBankAccount(context, "AT722050303300000928");
+                if (account != null)
+                    return account;
+            }
+
+            account = await context.BankAccounts.FirstOrDefaultAsync(a => a.ID == transaction.PartnerAccount.Iban);
             if (account != null)
                 return account;
             else
@@ -59,7 +95,15 @@ namespace ClubTreasurer.Utilities
                 };
 
                 context.BankAccounts.Add(account);
-                await context.SaveChangesAsync();
+
+                try
+                {
+                    await context.SaveChangesAsync();
+                }
+                catch (Exception ex)
+                {
+                    var test = ex;
+                }
 
                 //try to assign it to a person
                 var person = context.Persons.Where(p => p.FullName == transaction.PartnerName || p.FullNameReverse == transaction.PartnerName).FirstOrDefault();

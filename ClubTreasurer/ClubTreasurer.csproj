@@ -10,6 +10,8 @@
     <Copyright>(c) Rory Aherne</Copyright>
     <RepositoryUrl>https://github.com/roryaherne/ClubTreasurer</RepositoryUrl>
     <ApplicationIcon>logo_HvS_icon.ico</ApplicationIcon>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>RoryAherneRCI.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <ItemGroup>

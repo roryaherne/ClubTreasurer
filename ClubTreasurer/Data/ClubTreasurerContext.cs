@@ -6,17 +6,23 @@ using System.Threading;
 using System;
 using ClubTreasurer.Interfaces;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
+using System.Data.SqlClient;
+using System.Linq;
 
 namespace ClubTreasurer.Models
 {
     public class ClubTreasurerContext : IdentityDbContext<AppUser, AppRole, string>
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IOptions<RCIConfig> _rciConfig;
 
-        public ClubTreasurerContext (DbContextOptions<ClubTreasurerContext> options, IHttpContextAccessor httpContextAccessor)
+        public ClubTreasurerContext(DbContextOptions<ClubTreasurerContext> options, 
+            IHttpContextAccessor httpContextAccessor, IOptions<RCIConfig> rciConfig)
             : base(options)
         {
             _httpContextAccessor = httpContextAccessor;
+            _rciConfig = rciConfig;
         }
 
         public DbSet<BankAccount> BankAccounts { get; set; }
@@ -51,9 +57,11 @@ namespace ClubTreasurer.Models
         private void OnBeforeSaving()
         {
             var entries = ChangeTracker.Entries();
-            if (_httpContextAccessor.HttpContext?.User == null)
-                return;
-            var authenticatedUserId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            string userId;
+            userId = _httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            if (string.IsNullOrWhiteSpace(userId)) {
+                userId = AppUsers.Where(u => u.Email == _rciConfig.Value.AdminEmailAddress).FirstOrDefault().Id;
+            }
 
             var now = DateTime.Now;
             foreach (var entry in entries)
@@ -64,13 +72,13 @@ namespace ClubTreasurer.Models
                     {
                         case EntityState.Modified:
                             auditable.LastModified = now;
-                            auditable.LastModifiedById = authenticatedUserId;
+                            auditable.LastModifiedById = userId;
                             break;
 
                         case EntityState.Added:
                             auditable.Created = now;
                             auditable.LastModified = now;
-                            auditable.LastModifiedById = authenticatedUserId;
+                            auditable.LastModifiedById = userId;
                             break;
                     }
                 }

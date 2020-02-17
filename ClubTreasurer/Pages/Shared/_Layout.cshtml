@@ -32,13 +32,16 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a asp-page="/About">About</a></li>
-                    <li><a asp-page="/Contact">Contact</a></li>
+                    <li><a asp-page="/Players/Index">Players</a></li>
                     <li><a asp-page="/Transactions/Index">Transactions</a></li>
                     <li><a asp-page="/TransactionCategories/Index">Transaction Categories</a></li>
-                    <li><a asp-page="/Players/Index">Players</a></li>
+                    <li><a asp-page="/BankAccounts/Index">Bank Accounts</a></li>
+                    <li><a asp-page="/About">About</a></li>
+                    <li><a asp-page="/Contact">Contact</a></li>
                 </ul>
-                <partial name="_LoginPartial" />
+                <!-- Uncomment this if deploying to shared service
+                    <partial name="_LoginPartial" />
+                -->
             </div>
         </div>
     </nav>

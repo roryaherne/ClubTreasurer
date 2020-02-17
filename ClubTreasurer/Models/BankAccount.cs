@@ -8,12 +8,14 @@ namespace ClubTreasurer.Models
 {
     public class BankAccount : IAuditable
     {
+        [Display(Name="IBAN")]
         public string ID { get; set; }
 
         public string Name { get; set; }
 
         [ForeignKey("Person")]
         public int? PersonId { get; set; }
+        [Display(Name ="Account Holder")]
         public Person Person { get; set; }
 
         public ICollection<BankTransaction> Transactions { get; set; }

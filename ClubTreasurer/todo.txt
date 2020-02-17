@@ -1,4 +1,2 @@
-﻿1. Create A Settings View so things like the idcard bg colour can be updated
-2. Create ID card as pure css (except logo)
-3. Look into automapper for model - viewmodel - model
+﻿
 

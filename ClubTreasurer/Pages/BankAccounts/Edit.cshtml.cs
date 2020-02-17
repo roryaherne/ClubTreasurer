@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using ClubTreasurer.Models;
+using ClubTreasurer.ViewModels;
 
 namespace ClubTreasurer.Pages.BankAccounts
 {
@@ -18,7 +19,7 @@ namespace ClubTreasurer.Pages.BankAccounts
         }
 
         [BindProperty]
-        public BankAccount BankAccount { get; set; }
+        public BankAccountViewModel BankAccountModel { get; set; }
 
         public async Task<IActionResult> OnGetAsync(string id)
         {
@@ -27,16 +28,18 @@ namespace ClubTreasurer.Pages.BankAccounts
                 return NotFound();
             }
 
-            BankAccount = await _context.BankAccounts
-                .Include(b => b.LastModifiedBy)
-                .Include(b => b.Person).FirstOrDefaultAsync(m => m.ID == id);
+            BankAccountModel = new BankAccountViewModel();
 
-            if (BankAccount == null)
+            BankAccountModel.BankAccount = await _context.BankAccounts
+                .Include(b => b.LastModifiedBy)
+                .Include(b => b.Person)
+                .FirstOrDefaultAsync(m => m.ID == id);
+
+            if (BankAccountModel.BankAccount == null)
             {
                 return NotFound();
             }
-           ViewData["LastModifiedById"] = new SelectList(_context.AppUsers, "Id", "Id");
-           ViewData["PersonId"] = new SelectList(_context.Persons, "ID", "FullName");
+            BankAccountModel.AccountOwnerSelectList = new SelectList(_context.Persons.OrderBy(p => p.FullNameReverse), "ID", "FullNameReverse");
             return Page();
         }
 
@@ -47,7 +50,7 @@ namespace ClubTreasurer.Pages.BankAccounts
                 return Page();
             }
 
-            _context.Attach(BankAccount).State = EntityState.Modified;
+            _context.Attach(BankAccountModel.BankAccount).State = EntityState.Modified;
 
             try
             {
@@ -55,7 +58,7 @@ namespace ClubTreasurer.Pages.BankAccounts
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!BankAccountExists(BankAccount.ID))
+                if (!BankAccountExists(BankAccountModel.BankAccount.ID))
                 {
                     return NotFound();
                 }

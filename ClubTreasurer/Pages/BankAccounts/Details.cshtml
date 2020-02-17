@@ -28,7 +28,12 @@
             @Html.DisplayNameFor(model => model.BankAccount.Person)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BankAccount.Person.FullName)
+            @if (@Model.BankAccount != null)
+            {
+                <a asp-page="/Players/Details" asp-route-id="@Model.BankAccount.Person.ID">
+                    @Html.DisplayFor(modelItem => @Model.BankAccount.Person.FullName)
+                </a>
+            }
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.BankAccount.Created)
@@ -46,7 +51,7 @@
             @Html.DisplayNameFor(model => model.BankAccount.LastModifiedBy)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.BankAccount.LastModifiedBy.Id)
+            @Html.DisplayFor(model => model.BankAccount.LastModifiedBy.Email)
         </dd>
     </dl>
 </div>

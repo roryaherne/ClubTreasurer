@@ -10,12 +10,13 @@ using ClubTreasurer.Models;
 using ClubTreasurer.Utilities;
 using ClubTreasurer.Interfaces;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Localization;
 using ClubTreasurer.Data;
 using jsreport.AspNetCore;
 using jsreport.Local;
 using jsreport.Binary;
 using AutoMapper;
+using System.Globalization;
+using Microsoft.Extensions.Options;
 
 namespace ClubTreasurer
 {
@@ -25,6 +26,7 @@ namespace ClubTreasurer
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            CultureInfo.DefaultThreadCurrentCulture = new CultureInfo("en-IE");
         }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -64,7 +66,7 @@ namespace ClubTreasurer
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ClubTreasurerContext context,
-            RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
+            RoleManager<AppRole> roleManager, UserManager<AppUser> userManager, IOptions<RCIConfig> rciConfig)
         {
             if (env.IsDevelopment())
             {
@@ -77,29 +79,24 @@ namespace ClubTreasurer
                 app.UseHsts();
             }
 
-            app.UseRequestLocalization(new RequestLocalizationOptions
-            {
-                DefaultRequestCulture = new RequestCulture("en-IE")
-            });
-
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
             app.UseAuthentication();
 
-            IdentitySeed.Initialize(context, userManager, roleManager, Configuration).Wait();
+            IdentitySeed.Initialize(context, userManager, rciConfig, roleManager, Configuration).Wait();
 
             //TODO: Delete after deployment
-            if (env.IsDevelopment())
-            {
-                app.Use(async (httpContext, next) =>
-                {
-                    var user = httpContext.User.Identity.Name;
-                    DeveloperLogin(httpContext).Wait();
-                    await next.Invoke();
-                });
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.Use(async (httpContext, next) =>
+            //    {
+            //        var user = httpContext.User.Identity.Name;
+            //        DeveloperLogin(httpContext).Wait();
+            //        await next.Invoke();
+            //    });
+            //}
 
             app.UseMvc();
         }

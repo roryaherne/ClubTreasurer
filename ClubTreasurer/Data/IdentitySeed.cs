@@ -1,6 +1,7 @@
 ﻿using ClubTreasurer.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Threading.Tasks;
 
@@ -9,7 +10,7 @@ namespace ClubTreasurer.Data
     public class IdentitySeed
     {
         public static async Task Initialize(ClubTreasurerContext context,
-                              UserManager<AppUser> userManager,
+                              UserManager<AppUser> userManager, IOptions<RCIConfig> rciConfig,
                               RoleManager<AppRole> roleManager, IConfiguration configuration)
         {
             context.Database.EnsureCreated();
@@ -19,6 +20,9 @@ namespace ClubTreasurer.Data
 
             var passwords = configuration.GetSection("Passwords");
             var adminPassword = passwords.GetValue<string>("AdminPassword");
+            var adminEmail = rciConfig.Value.AdminEmailAddress;
+            var adminFirstName = rciConfig.Value.AdminFirstName;
+            var adminLastName = rciConfig.Value.AdminLastName; ;
 
             if (await roleManager.FindByNameAsync(adminRole) == null)
             {
@@ -26,14 +30,14 @@ namespace ClubTreasurer.Data
             }
            
 
-            if (await userManager.FindByEmailAsync("roryaherne@gmail.com") == null)
+            if (await userManager.FindByEmailAsync(adminEmail) == null)
             {
                 var user = new AppUser
                 {
-                    UserName = "roryaherne@gmail.com",
-                    FirstName = "Rory",
-                    LastName = "Aherne",
-                    Email = "roryaherne@gmail.com",
+                    UserName = $"{adminFirstName} {adminLastName} (Administrator)",
+                    FirstName = adminFirstName,
+                    LastName = adminLastName,
+                    Email = adminEmail,
                     EmailConfirmed = true
                 };
 
